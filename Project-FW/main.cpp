@@ -24,7 +24,7 @@ INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR, INT )
 
 	g_SceneManager->StartScene(GameScene::scene()) ;
 
-	WinSystem.WinSet() ;	// WS_THICKFRAME - 윈도우창 늘리기/줄이기 크기조정 지원안함.
+	WinSystem.WinSet("용사! Jam - v 0.1 alpha", WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX, 960, 540) ;	// WS_THICKFRAME - 윈도우창 늘리기/줄이기 크기조정 지원안함.
 	WinSystem.WinMsg() ;
 	WinSystem.WinEnd() ;
 

@@ -6,14 +6,23 @@
 #include "MusicManager.h"
 #include "CameraManager.h"
 
+#include "D3dDevice.h"
+
+#include "Sprite.h"
 #include "Button.h"
 #include "ButtonManager.h"
+#include "MainUI.h"
 
-GameScene::GameScene() : m_pButton(0)
+GameScene::GameScene() : m_pMap(NULL),
+						 m_pMainUI(NULL)
 {
 }
 GameScene::~GameScene()
 {
+	if(m_pMap!=NULL)
+		delete m_pMap ;
+	if(m_pMainUI!=NULL)
+		delete m_pMainUI ;
 }
 
 Scene* GameScene::scene()
@@ -25,13 +34,16 @@ Scene* GameScene::scene()
 
 void GameScene::Init()
 {
+	float Height=g_D3dDevice->GetWinHeight() ;
+
 	g_CameraManager->AddCamera(new CCamera(), 0) ;
 
-	m_pButton = new CButton ;
-	m_pButton->Init(60.0f, 60.0f, "Resource/Image/HeartButton.png") ;
-	m_pButton->SetIndex(0, 1, 2) ;
+	m_pMap = new CSprite ;
+	m_pMap->Init("Resource/Image/Map.png") ;
+	m_pMap->SetPosition(368.0f, Height - 240.0f) ;
 
-	g_ButtonManager->AddButton(m_pButton) ;
+	m_pMainUI = new CMainUI ;
+	m_pMainUI->Init() ;
 }
 
 void GameScene::Destroy()
@@ -52,5 +64,7 @@ void GameScene::Render()
 {
 	g_CameraManager->CameraRun() ;
 
-	g_ButtonManager->Render() ;
+	m_pMap->Render() ;
+
+	m_pMainUI->Render() ;
 }

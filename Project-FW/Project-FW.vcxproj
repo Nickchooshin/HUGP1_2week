@@ -87,6 +87,7 @@
     <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainUI.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="Joystick.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="MainUI.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MusicManager.h" />
     <ClInclude Include="Scene.h" />

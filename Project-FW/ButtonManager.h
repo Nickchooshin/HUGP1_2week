@@ -20,7 +20,7 @@ public :
 
 	void Update() ;
 
-	void Render() ;
+	//void Render() ;
 } ;
 
 #define g_ButtonManager CButtonManager::GetInstance()

@@ -57,10 +57,10 @@ void CButtonManager::Update()
 	}
 }
 
-void CButtonManager::Render()
+/*void CButtonManager::Render()
 {
 	const int num=m_ButtonList.size() ;
 
 	for(int i=0; i<num; i++)
 		m_ButtonList[i]->Render() ;
-}
+}*/

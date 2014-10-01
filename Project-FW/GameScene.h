@@ -2,12 +2,14 @@
 
 #include "Scene.h"
 
-class CButton ;
+class CSprite ;
+class CMainUI ;
 
 class GameScene : public Scene
 {
 private :
-	CButton *m_pButton ;
+	CSprite *m_pMap ;
+	CMainUI *m_pMainUI ;
 
 public :
 	static Scene* scene() ;
