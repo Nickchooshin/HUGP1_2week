@@ -77,9 +77,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="D3dSystem.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InputDevice.cpp" />
     <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -87,17 +90,19 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SampleScene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UISprite.cpp" />
     <ClCompile Include="WinSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="D3dSystem.h" />
     <ClInclude Include="D3dDevice.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="Joystick.h" />
     <ClInclude Include="Keyboard.h" />
@@ -105,7 +110,6 @@
     <ClInclude Include="MusicManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SampleScene.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextureManager.h" />
