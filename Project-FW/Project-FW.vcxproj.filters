@@ -53,6 +53,15 @@
     <ClCompile Include="MainUI.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Object\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h" />
@@ -113,6 +122,15 @@
     <ClInclude Include="MainUI.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Object\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Input">
@@ -150,6 +168,12 @@
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{a53a4791-e34b-446b-997a-bd46e3cde695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{8e382c39-63bf-406b-934f-0781a769fcee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Character">
+      <UniqueIdentifier>{5bae4d81-b187-4059-afbb-41492a9d24ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

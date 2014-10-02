@@ -12,6 +12,7 @@
 #include "Button.h"
 #include "ButtonManager.h"
 #include "MainUI.h"
+#include "CharacterManager.h"
 
 GameScene::GameScene() : m_pMap(NULL),
 						 m_pMainUI(NULL)
@@ -44,6 +45,8 @@ void GameScene::Init()
 
 	m_pMainUI = new CMainUI ;
 	m_pMainUI->Init() ;
+
+	g_CharacterManager->Init() ;
 }
 
 void GameScene::Destroy()
@@ -58,6 +61,8 @@ void GameScene::Update(float dt)
 	g_MusicManager->Loop() ;
 
 	g_ButtonManager->Update() ;
+
+	g_CharacterManager->Update() ;
 }
 
 void GameScene::Render()
@@ -67,4 +72,6 @@ void GameScene::Render()
 	m_pMap->Render() ;
 
 	m_pMainUI->Render() ;
+
+	g_CharacterManager->Render() ;
 }
