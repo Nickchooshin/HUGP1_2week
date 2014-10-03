@@ -2,12 +2,14 @@
 
 #include "Object.h"
 
+class CButton ;
+
 typedef struct _Status
 {
-	int Str ;
-	int Agi ;
-	int Mana ;
-	int Int ;
+	float Str ;
+	float Agi ;
+	float Mana ;
+	float Int ;
 } Status ;
 
 class CCharacter : public CObject
@@ -21,6 +23,8 @@ private :
 	Status m_Status ;
 	Race m_Race ;
 
+	CButton *m_pButton ;
+
 public :
 	CCharacter() ;
 	virtual ~CCharacter() ;
@@ -28,5 +32,10 @@ public :
 	void Init() ;
 	void Init(Race race, int nRaceGenetic, bool bFemale, Status status) ;
 
-	void Update() ;
+	const Status GetStatus() const ;
+	const int GetRaceGenetic() const ;
+	const bool IsFemale() const ;
+	const Race GetRace() const ;
+
+	const bool BeClick() const ;
 } ;

@@ -8,6 +8,7 @@ CButton::CButton() : m_fX(0.0f), m_fY(0.0f),
 					 m_fWidth(0.0f), m_fHeight(0.0f),
 					 m_nState(0), m_nPrevState(-1),
 					 m_bActivate(true), m_bClick(false),
+					 m_bVisible(true),
 					 m_pSprite(NULL)
 {
 	for(int i=0; i<3; i++)
@@ -56,13 +57,16 @@ void CButton::SetActivate(bool bActivate)
 	m_bActivate = bActivate ;
 }
 
-/*void CButton::Update()
+void CButton::SetVisible(bool bVisible)
 {
-}*/
+	m_bVisible = bVisible ;
+}
 
 void CButton::ClickState(int x, int y, bool bClick, bool bPress)
 {
 	m_bClick = false ;
+	if(!m_bActivate || !m_bVisible)
+		return ;
 
 	if(bPress && CollisionCheck(x, y))
 		m_bClick = true ;
@@ -82,8 +86,16 @@ const bool CButton::BeActivate() const
 	return m_bActivate ;
 }
 
+const bool CButton::BeVisible() const
+{
+	return m_bVisible ;
+}
+
 void CButton::Render()
 {
+	if(!m_bVisible)
+		return ;
+
 	if(!m_bActivate)
 		m_nState = m_nIndex[2] ;
 

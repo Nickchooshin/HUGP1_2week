@@ -10,6 +10,7 @@ private :
 	int m_nIndex[3] ;
 	int m_nState, m_nPrevState ;
 	bool m_bActivate, m_bClick ;
+	bool m_bVisible ;
 	CSprite *m_pSprite ;
 
 public :
@@ -22,12 +23,12 @@ public :
 	void SetPosition(float fX, float fY) ;
 	void SetIndex(int normalIndex, int clickIndex, int disableIndex) ;
 	void SetActivate(bool bActivate) ;
+	void SetVisible(bool bVisible) ;
 
 	void ClickState(int x, int y, bool bClick, bool bPress) ;
 	const bool BeClick() const ;
 	const bool BeActivate() const ;
-
-	//void Update() ;
+	const bool BeVisible() const ;
 
 	void Render() ;
 private :

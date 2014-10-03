@@ -14,16 +14,15 @@
 #include "MainUI.h"
 #include "CharacterManager.h"
 
-GameScene::GameScene() : m_pMap(NULL),
-						 m_pMainUI(NULL)
+CCharacterUI *pCharUI=NULL ;
+
+GameScene::GameScene() : m_pMap(NULL)
 {
 }
 GameScene::~GameScene()
 {
 	if(m_pMap!=NULL)
 		delete m_pMap ;
-	if(m_pMainUI!=NULL)
-		delete m_pMainUI ;
 }
 
 Scene* GameScene::scene()
@@ -43,8 +42,7 @@ void GameScene::Init()
 	m_pMap->Init("Resource/Image/Map.png") ;
 	m_pMap->SetPosition(368.0f, Height - 240.0f) ;
 
-	m_pMainUI = new CMainUI ;
-	m_pMainUI->Init() ;
+	g_MainUI->Init() ;
 
 	g_CharacterManager->Init() ;
 }
@@ -63,6 +61,8 @@ void GameScene::Update(float dt)
 	g_ButtonManager->Update() ;
 
 	g_CharacterManager->Update() ;
+
+	g_MainUI->Update() ;
 }
 
 void GameScene::Render()
@@ -71,7 +71,7 @@ void GameScene::Render()
 
 	m_pMap->Render() ;
 
-	m_pMainUI->Render() ;
+	g_MainUI->Render() ;
 
 	g_CharacterManager->Render() ;
 }

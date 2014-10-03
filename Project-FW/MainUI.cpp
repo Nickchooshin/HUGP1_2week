@@ -1,6 +1,9 @@
 #include "MainUI.h"
 #include "Sprite.h"
 #include "Button.h"
+#include "CharacterUI.h"
+#include "Character.h"
+
 #include "ButtonManager.h"
 
 #include "D3dDevice.h"
@@ -8,7 +11,8 @@
 CMainUI::CMainUI() : m_pUIBackground(NULL),
 					 m_pMotelText(NULL),
 					 m_pTurnYear(NULL),
-					 m_pTurnButton(NULL)
+					 m_pTurnButton(NULL),
+					 m_pCharacterUI(NULL)
 {
 	for(int i=0; i<5; i++)
 	{
@@ -26,6 +30,8 @@ CMainUI::~CMainUI()
 		delete m_pTurnYear ;
 	if(m_pTurnButton!=NULL)
 		g_ButtonManager->DeleteButton(m_pTurnButton) ;
+	if(m_pCharacterUI!=NULL)
+		delete m_pCharacterUI ;
 
 	for(int i=0; i<5; i++)
 	{
@@ -72,10 +78,21 @@ void CMainUI::Init()
 	m_pTurnButton->SetIndex(0, 1, 2) ;
 
 	g_ButtonManager->AddButton(m_pTurnButton) ;
+
+	m_pCharacterUI = new CCharacterUI ;
+	m_pCharacterUI->Init() ;
+	m_pCharacterUI->SetVisible(false) ;
+}
+
+void CMainUI::SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter)
+{
+	m_pCharacterUI->SetCharacter(pCharacter) ;
+	m_pCharacterUI->SetVisible(bVisible) ;
 }
 
 void CMainUI::Update()
 {
+	m_pCharacterUI->Update() ;
 }
 
 void CMainUI::Render()
@@ -91,4 +108,6 @@ void CMainUI::Render()
 
 	m_pTurnYear->Render() ;
 	m_pTurnButton->Render() ;
+
+	m_pCharacterUI->Render() ;
 }

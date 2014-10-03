@@ -49,12 +49,7 @@ void CButtonManager::Update()
 	bool bPress = g_Mouse->IsMousePress(g_Mouse->LBUTTON_UP) ;
 
 	for(int i=0; i<num; i++)
-	{
-		if(!m_ButtonList[i]->BeActivate())
-			continue ;
-		//m_ButtonList[i]->Update() ;
 		m_ButtonList[i]->ClickState(x, y, bClick, bPress) ;
-	}
 }
 
 /*void CButtonManager::Render()

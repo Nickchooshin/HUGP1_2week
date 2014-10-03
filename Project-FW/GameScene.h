@@ -3,13 +3,11 @@
 #include "Scene.h"
 
 class CSprite ;
-class CMainUI ;
 
 class GameScene : public Scene
 {
 private :
 	CSprite *m_pMap ;
-	CMainUI *m_pMainUI ;
 
 public :
 	static Scene* scene() ;

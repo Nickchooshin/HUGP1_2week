@@ -1,4 +1,5 @@
 #include "CharacterManager.h"
+#include "MainUI.h"
 
 #include "D3dDevice.h"
 
@@ -19,18 +20,18 @@ CCharacterManager::CCharacterManager()
 	m_fCharPosition[10][0] = 178.0f ;	m_fCharPosition[10][1] = Height - 54.0f ;
 	m_fCharPosition[11][0] = 580.0f ;	m_fCharPosition[11][1] = Height - 87.0f ;
 
-	m_Status[0].Str=2 ; m_Status[0].Agi=2 ; m_Status[0].Mana=3 ; m_Status[0].Int=5 ;
-	m_Status[1].Str=2 ; m_Status[1].Agi=2 ; m_Status[1].Mana=2 ; m_Status[1].Int=6 ;
-	m_Status[2].Str=2 ; m_Status[2].Agi=3 ; m_Status[2].Mana=2 ; m_Status[2].Int=5 ;
-	m_Status[3].Str=2 ; m_Status[3].Agi=2 ; m_Status[3].Mana=5 ; m_Status[3].Int=3 ;
-	m_Status[4].Str=3 ; m_Status[4].Agi=2 ; m_Status[4].Mana=5 ; m_Status[4].Int=3 ;
-	m_Status[5].Str=2 ; m_Status[5].Agi=2 ; m_Status[5].Mana=6 ; m_Status[5].Int=2 ;
-	m_Status[6].Str=2 ; m_Status[6].Agi=6 ; m_Status[6].Mana=2 ; m_Status[6].Int=2 ;
-	m_Status[7].Str=2 ; m_Status[7].Agi=5 ; m_Status[7].Mana=3 ; m_Status[7].Int=2 ;
-	m_Status[8].Str=3 ; m_Status[8].Agi=5 ; m_Status[8].Mana=2 ; m_Status[8].Int=2 ;
-	m_Status[9].Str=5 ; m_Status[9].Agi=2 ; m_Status[9].Mana=2 ; m_Status[9].Int=3 ;
-	m_Status[10].Str=7 ; m_Status[10].Agi=2 ; m_Status[10].Mana=2 ; m_Status[10].Int=2 ;
-	m_Status[11].Str=6 ; m_Status[11].Agi=3 ; m_Status[11].Mana=2 ; m_Status[11].Int=2 ;
+	m_Status[0].Str=2.0f ; m_Status[0].Agi=2.0f ; m_Status[0].Mana=3.0f ; m_Status[0].Int=5.0f ;
+	m_Status[1].Str=2.0f ; m_Status[1].Agi=2.0f ; m_Status[1].Mana=2.0f ; m_Status[1].Int=6.0f ;
+	m_Status[2].Str=2.0f ; m_Status[2].Agi=3.0f ; m_Status[2].Mana=2.0f ; m_Status[2].Int=5.0f ;
+	m_Status[3].Str=2.0f ; m_Status[3].Agi=2.0f ; m_Status[3].Mana=5.0f ; m_Status[3].Int=3.0f ;
+	m_Status[4].Str=3.0f ; m_Status[4].Agi=2.0f ; m_Status[4].Mana=5.0f ; m_Status[4].Int=3.0f ;
+	m_Status[5].Str=2.0f ; m_Status[5].Agi=2.0f ; m_Status[5].Mana=6.0f ; m_Status[5].Int=2.0f ;
+	m_Status[6].Str=2.0f ; m_Status[6].Agi=6.0f ; m_Status[6].Mana=2.0f ; m_Status[6].Int=2.0f ;
+	m_Status[7].Str=2.0f ; m_Status[7].Agi=5.0f ; m_Status[7].Mana=3.0f ; m_Status[7].Int=2.0f ;
+	m_Status[8].Str=3.0f ; m_Status[8].Agi=5.0f ; m_Status[8].Mana=2.0f ; m_Status[8].Int=2.0f ;
+	m_Status[9].Str=5.0f ; m_Status[9].Agi=2.0f ; m_Status[9].Mana=2.0f ; m_Status[9].Int=3.0f ;
+	m_Status[10].Str=7.0f ; m_Status[10].Agi=2.0f ; m_Status[10].Mana=2.0f ; m_Status[10].Int=2.0f ;
+	m_Status[11].Str=6.0f ; m_Status[11].Agi=3.0f ; m_Status[11].Mana=2.0f ; m_Status[11].Int=2.0f ;
 }
 CCharacterManager::~CCharacterManager()
 {
@@ -46,7 +47,6 @@ void CCharacterManager::Init()
 {
 	int i ;
 	CCharacter *pCharacter ;
-	Status status[12] ;
 	CCharacter::Race race ;
 
 	// Á¾Á·°ª
@@ -67,14 +67,24 @@ void CCharacterManager::Init()
 			race = CCharacter::DWARF ;
 
 		pCharacter = new CCharacter ;
-		pCharacter->Init(race, m_nRaceGenetic[i], m_bFemale[i], status[i]) ;
 		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
+		pCharacter->Init(race, m_nRaceGenetic[i], m_bFemale[i], m_Status[i]) ;
 		m_CharacterList.push_back(pCharacter) ;
 	}
 }
 
 void CCharacterManager::Update()
 {
+	const int num=m_CharacterList.size() ;
+
+	for(int i=0; i<num; i++)
+	{
+		m_CharacterList[i]->Update() ;
+		if(m_CharacterList[i]->BeClick())
+		{
+			g_MainUI->SetVisibleCharacterUI(true, m_CharacterList[i]) ;
+		}
+	}
 }
 
 void CCharacterManager::Render()
