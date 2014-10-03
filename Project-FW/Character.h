@@ -37,5 +37,7 @@ public :
 	const bool IsFemale() const ;
 	const Race GetRace() const ;
 
+	CSprite* const GetSprite() const ;
+
 	const bool BeClick() const ;
 } ;

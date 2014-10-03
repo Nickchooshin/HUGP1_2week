@@ -15,10 +15,12 @@ public :
 	void Init() ;
 
 	void SetPosition(float fX, float fY) ;
-	void SetCharacter(CCharacter *pCharacter, bool bFemale) ;
+	void SetCharacter(CCharacter *pCharacter) ;
 
 	const bool BeFemale() const ;
 	const bool BeMale() const ;
+
+	bool DeleteCharacter(CCharacter *pCharacter) ;
 
 	void Render() ;
 } ;

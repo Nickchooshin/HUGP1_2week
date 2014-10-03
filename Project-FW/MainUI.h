@@ -31,6 +31,10 @@ public :
 	void Update() ;
 
 	void Render() ;
+private :
+	bool IsMatingSlotEmpty(bool bSelectedCharFemale, int nMatingSlotIndex) ;
+	void DeleteMatingChar() ;
+	void MatingRender() ;
 } ;
 
 #define g_MainUI CMainUI::GetInstance()

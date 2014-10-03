@@ -91,23 +91,22 @@ void CMainUI::Init()
 void CMainUI::SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter)
 {
 	m_pSelectedCharacter = pCharacter ;
-	m_pCharacterUI->SetCharacter(m_pSelectedCharacter) ;
 	m_pCharacterUI->SetVisible(bVisible) ;
+	m_pCharacterUI->SetCharacter(m_pSelectedCharacter) ;
+
+	SetActivateHeartButton(false) ;
 }
 
 void CMainUI::SetActivateHeartButton(bool bActivate)
 {
+	bool bFemale=m_pSelectedCharacter->IsFemale() ;
+
 	for(int i=0; i<6; i++)
 	{
 		if(bActivate)
 		{
-			bool bFemale = m_pSelectedCharacter->IsFemale() ;
-
-			if( (bFemale && !g_UserData->pMating[i]->BeFemale()) ||
-				(!bFemale && !g_UserData->pMating[i]->BeMale()) )
-			{
+			if(IsMatingSlotEmpty(bFemale, i))
 				m_pHeartButton[i]->SetActivate(true) ;
-			}
 		}
 		else
 			m_pHeartButton[i]->SetActivate(false) ;
@@ -117,6 +116,17 @@ void CMainUI::SetActivateHeartButton(bool bActivate)
 void CMainUI::Update()
 {
 	m_pCharacterUI->Update() ;
+
+	for(int i=0; i<6; i++)
+	{
+		if(m_pHeartButton[i]->BeClick())
+		{
+			DeleteMatingChar() ;
+
+			m_pHeartButton[i]->SetActivate(false) ;
+			g_UserData->pMating[i]->SetCharacter(m_pSelectedCharacter) ;
+		}
+	}
 }
 
 void CMainUI::Render()
@@ -134,4 +144,36 @@ void CMainUI::Render()
 	m_pTurnButton->Render() ;
 
 	m_pCharacterUI->Render() ;
+	MatingRender() ;
+}
+
+bool CMainUI::IsMatingSlotEmpty(bool bSelectedCharFemale, int nMatingSlotIndex)
+{
+	bool bEmptySlot ;
+
+	if(bSelectedCharFemale)
+		bEmptySlot = !g_UserData->pMating[nMatingSlotIndex]->BeFemale() ;
+	else
+		bEmptySlot = !g_UserData->pMating[nMatingSlotIndex]->BeMale() ;
+
+	return bEmptySlot ;
+}
+
+void CMainUI::DeleteMatingChar()
+{
+	for(int i=0; i<6; i++)
+	{
+		bool bDelete = g_UserData->pMating[i]->DeleteCharacter(m_pSelectedCharacter) ;
+		if(bDelete)
+			m_pHeartButton[i]->SetActivate(true) ;
+	}
+}
+
+void CMainUI::MatingRender()
+{
+	for(int i=0; i<6; i++)
+	{
+		g_UserData->pMating[i]->SetPosition(879.0f, 439.0f - (71.0f * i)) ;
+		g_UserData->pMating[i]->Render() ;
+	}
 }

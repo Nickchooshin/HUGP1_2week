@@ -86,6 +86,11 @@ const CCharacter::Race CCharacter::GetRace() const
 	return m_Race ;
 }
 
+CSprite* const CCharacter::GetSprite() const
+{
+	return m_pSprite ;
+}
+
 const bool CCharacter::BeClick() const
 {
 	return m_pButton->BeClick() ;
