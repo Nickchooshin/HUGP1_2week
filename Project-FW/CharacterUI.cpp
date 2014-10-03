@@ -5,6 +5,8 @@
 #include "ButtonManager.h"
 #include "StatusNumberUI.h"
 
+#include "MainUI.h"
+
 #include "D3dDevice.h"
 
 CCharacterUI::CCharacterUI() : m_fX(0.0f), m_fY(0.0f),
@@ -166,11 +168,13 @@ void CCharacterUI::Update()
 	{
 		m_pMatingButton->SetVisible(false) ;
 		m_pMatingCancleButton->SetVisible(true) ;
+		g_MainUI->SetActivateHeartButton(true) ;
 	}
 	else if(m_pMatingCancleButton->BeClick())
 	{
 		m_pMatingButton->SetVisible(true) ;
 		m_pMatingCancleButton->SetVisible(false) ;
+		g_MainUI->SetActivateHeartButton(false) ;
 	}
 	else if(m_pEventButton->BeClick())
 	{
@@ -178,6 +182,7 @@ void CCharacterUI::Update()
 	else if(m_pCloseButton->BeClick())
 	{
 		SetVisible(false) ;
+		g_MainUI->SetActivateHeartButton(false) ;
 	}
 }
 

@@ -13,6 +13,7 @@
 #include "ButtonManager.h"
 #include "MainUI.h"
 #include "CharacterManager.h"
+#include "UserData.h"
 
 CCharacterUI *pCharUI=NULL ;
 
@@ -45,6 +46,8 @@ void GameScene::Init()
 	g_MainUI->Init() ;
 
 	g_CharacterManager->Init() ;
+
+	g_UserData->Init() ;
 }
 
 void GameScene::Destroy()

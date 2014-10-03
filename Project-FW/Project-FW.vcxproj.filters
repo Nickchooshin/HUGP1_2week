@@ -71,6 +71,12 @@
     <ClCompile Include="StatusNumberUI.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Mating.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="UserData.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h" />
@@ -149,6 +155,12 @@
     <ClInclude Include="StatusNumberUI.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="Mating.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="UserData.h">
+      <Filter>Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Input">
@@ -192,6 +204,9 @@
     </Filter>
     <Filter Include="Object\Character">
       <UniqueIdentifier>{5bae4d81-b187-4059-afbb-41492a9d24ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{67670734-606b-4f57-8733-5551730e1e65}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
