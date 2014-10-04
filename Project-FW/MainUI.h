@@ -27,14 +27,16 @@ public :
 
 	void SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter=0) ;
 	void SetActivateHeartButton(bool bActivate) ;
+	
+	void DeleteMatingChar() ;
 
 	void Update() ;
 
 	void Render() ;
 private :
 	bool IsMatingSlotEmpty(bool bSelectedCharFemale, int nMatingSlotIndex) ;
-	void DeleteMatingChar() ;
 	void MatingRender() ;
+	bool IsMatingFull() ;
 } ;
 
 #define g_MainUI CMainUI::GetInstance()

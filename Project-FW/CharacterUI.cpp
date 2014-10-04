@@ -116,8 +116,8 @@ void CCharacterUI::SetVisible(bool bVisible)
 {
 	m_bVisible = bVisible ;
 
-	m_pMatingButton->SetVisible(m_bVisible) ;
-	m_pMatingCancleButton->SetVisible(false) ;
+	m_pMatingButton->SetVisible(m_bVisible & !m_bMating) ;
+	m_pMatingCancleButton->SetVisible(m_bVisible & m_bMating) ;
 	m_pEventButton->SetVisible(m_bVisible) ;
 	m_pCloseButton->SetVisible(m_bVisible) ;
 }
@@ -132,6 +132,7 @@ void CCharacterUI::SetCharacter(CCharacter *pCharacter)
 	m_pNumMana->SetNumber(status.Mana) ;
 	m_pNumInt->SetNumber(status.Int) ;
 	m_pNumRaceGenetic->SetNumber(RaceGenetic) ;
+	m_bMating = pCharacter->BeMating() ;
 
 	float y ;
 
@@ -172,6 +173,8 @@ void CCharacterUI::Update()
 	}
 	else if(m_pMatingCancleButton->BeClick())
 	{
+		g_MainUI->DeleteMatingChar() ;
+
 		m_pMatingButton->SetVisible(true) ;
 		m_pMatingCancleButton->SetVisible(false) ;
 		g_MainUI->SetActivateHeartButton(false) ;

@@ -19,6 +19,7 @@ public :
 
 	const bool BeFemale() const ;
 	const bool BeMale() const ;
+	const bool IsFull() const ;
 
 	bool DeleteCharacter(CCharacter *pCharacter) ;
 

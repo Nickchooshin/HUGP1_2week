@@ -91,10 +91,10 @@ void CMainUI::Init()
 void CMainUI::SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter)
 {
 	m_pSelectedCharacter = pCharacter ;
-	m_pCharacterUI->SetVisible(bVisible) ;
 	m_pCharacterUI->SetCharacter(m_pSelectedCharacter) ;
+	m_pCharacterUI->SetVisible(bVisible) ;
 
-	SetActivateHeartButton(false) ;
+	SetActivateHeartButton(pCharacter->BeMating()) ;
 }
 
 void CMainUI::SetActivateHeartButton(bool bActivate)
@@ -107,9 +107,25 @@ void CMainUI::SetActivateHeartButton(bool bActivate)
 		{
 			if(IsMatingSlotEmpty(bFemale, i))
 				m_pHeartButton[i]->SetActivate(true) ;
+			else
+				m_pHeartButton[i]->SetActivate(false) ;
 		}
 		else
 			m_pHeartButton[i]->SetActivate(false) ;
+	}
+}
+
+void CMainUI::DeleteMatingChar()
+{
+	for(int i=0; i<6; i++)
+	{
+		bool bDelete = g_UserData->pMating[i]->DeleteCharacter(m_pSelectedCharacter) ;
+		if(bDelete)
+		{
+			m_pSelectedCharacter->SetMating(false) ;
+			m_pHeartButton[i]->SetActivate(true) ;
+			break ;
+		}
 	}
 }
 
@@ -123,10 +139,15 @@ void CMainUI::Update()
 		{
 			DeleteMatingChar() ;
 
+			m_pSelectedCharacter->SetMating(true) ;
 			m_pHeartButton[i]->SetActivate(false) ;
 			g_UserData->pMating[i]->SetCharacter(m_pSelectedCharacter) ;
+
+			break ;
 		}
 	}
+
+	m_pTurnButton->SetActivate(IsMatingFull()) ;
 }
 
 void CMainUI::Render()
@@ -159,16 +180,6 @@ bool CMainUI::IsMatingSlotEmpty(bool bSelectedCharFemale, int nMatingSlotIndex)
 	return bEmptySlot ;
 }
 
-void CMainUI::DeleteMatingChar()
-{
-	for(int i=0; i<6; i++)
-	{
-		bool bDelete = g_UserData->pMating[i]->DeleteCharacter(m_pSelectedCharacter) ;
-		if(bDelete)
-			m_pHeartButton[i]->SetActivate(true) ;
-	}
-}
-
 void CMainUI::MatingRender()
 {
 	for(int i=0; i<6; i++)
@@ -176,4 +187,15 @@ void CMainUI::MatingRender()
 		g_UserData->pMating[i]->SetPosition(879.0f, 439.0f - (71.0f * i)) ;
 		g_UserData->pMating[i]->Render() ;
 	}
+}
+
+bool CMainUI::IsMatingFull()
+{
+	for(int i=0; i<6; i++)
+	{
+		if(!g_UserData->pMating[i]->IsFull())
+			return false ;
+	}
+
+	return true ;
 }

@@ -42,6 +42,14 @@ const bool CMating::BeMale() const
 	return m_pMale!=NULL ;
 }
 
+const bool CMating::IsFull() const
+{
+	if(m_pFemale!=NULL && m_pMale!=NULL)
+		return true ;
+
+	return false ;
+}
+
 bool CMating::DeleteCharacter(CCharacter *pCharacter)
 {
 	bool bFemale = pCharacter->IsFemale() ;

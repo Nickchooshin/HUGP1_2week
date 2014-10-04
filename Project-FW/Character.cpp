@@ -9,6 +9,7 @@ CCharacter::CCharacter() : m_nRaceGenetic(0),
 						   m_bFemale(false),
 						   m_nClothesType(0),
 						   m_Status(),
+						   m_bMating(false),
 						   m_pButton(NULL)
 {
 }
@@ -66,6 +67,11 @@ void CCharacter::Init(Race race, int nRaceGenetic, bool bFemale, Status status)
 	Init() ;
 }
 
+void CCharacter::SetMating(bool bMating)
+{
+	m_bMating = bMating ;
+}
+
 const Status CCharacter::GetStatus() const
 {
 	return m_Status ;
@@ -84,6 +90,11 @@ const bool CCharacter::IsFemale() const
 const CCharacter::Race CCharacter::GetRace() const
 {
 	return m_Race ;
+}
+
+const bool CCharacter::BeMating() const
+{
+	return m_bMating ;
 }
 
 CSprite* const CCharacter::GetSprite() const

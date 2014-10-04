@@ -15,6 +15,7 @@ private :
 	CButton *m_pCloseButton ;
 	CStatusNumberUI *m_pNumStr, *m_pNumAgi, *m_pNumMana, *m_pNumInt, *m_pNumRaceGenetic ;
 	CSprite *m_pSex, *m_pRace ;
+	bool m_bMating ;
 	bool m_bVisible ;
 
 public :

@@ -22,6 +22,7 @@ private :
 	int m_nClothesType ;
 	Status m_Status ;
 	Race m_Race ;
+	bool m_bMating ;
 
 	CButton *m_pButton ;
 
@@ -32,10 +33,13 @@ public :
 	void Init() ;
 	void Init(Race race, int nRaceGenetic, bool bFemale, Status status) ;
 
+	void SetMating(bool bMating) ;
+
 	const Status GetStatus() const ;
 	const int GetRaceGenetic() const ;
 	const bool IsFemale() const ;
 	const Race GetRace() const ;
+	const bool BeMating() const ;
 
 	CSprite* const GetSprite() const ;
 
