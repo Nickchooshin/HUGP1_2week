@@ -136,10 +136,10 @@ void CCharacterManager::InitRaceGenetic()
 		{
 			int r = rand()%12 ;
 
-			if(!randCheck[i])
+			if(!randCheck[r])
 			{
-				randCheck[i] = true ;
-				m_nRaceGenetic[i] = i+1 ;
+				randCheck[r] = true ;
+				m_nRaceGenetic[r] = r+1 ;
 				break ;
 			}
 		}
