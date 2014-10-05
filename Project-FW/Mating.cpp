@@ -1,6 +1,8 @@
 #include "Mating.h"
 #include "Sprite.h"
 
+#include "CharacterManager.h"
+
 CMating::CMating() : m_fX(0.0f), m_fY(0.0f),
 					 m_pHeredityRace(NULL),
 					 m_pMale(NULL), m_pFemale(NULL),
@@ -53,11 +55,19 @@ const bool CMating::IsFull() const
 void CMating::InsertCharacter(CCharacter *pCharacter)
 {
 	bool bFemale = pCharacter->IsFemale() ;
+	float x ;
 
 	if(bFemale)
+	{
 		m_pFemale = pCharacter ;
+		x = 36.0f ;
+	}
 	else
+	{
 		m_pMale = pCharacter ;
+		x = -36.0f ;
+	}
+	pCharacter->SetPosition(m_fX + x, m_fY) ;
 
 	UpdateRaceGenetic() ;
 }
@@ -74,6 +84,8 @@ bool CMating::DeleteCharacter(CCharacter *pCharacter)
 
 	if(*pChar==pCharacter)
 	{
+		g_CharacterManager->SetOriginallyPosition(pCharacter) ;
+
 		*pChar = NULL ;
 		UpdateRaceGenetic() ;
 
@@ -141,20 +153,6 @@ void CMating::Mating(Status& Child1_Status, Status& Child2_Status, Race& Child_R
 
 void CMating::Render()
 {
-	CSprite *pSprite ;
-
-	if(m_pMale!=NULL)
-	{
-		pSprite = m_pMale->GetSprite() ;
-		pSprite->SetPosition(m_fX - 36.0f, m_fY) ;
-		pSprite->Render() ;
-	}
-	if(m_pFemale!=NULL)
-	{
-		pSprite = m_pFemale->GetSprite() ;
-		pSprite->SetPosition(m_fX + 36.0f, m_fY) ;
-		pSprite->Render() ;
-	}
 	if(m_Child_Race!=NONE)
 	{
 		m_pHeredityRace->SetPosition(m_fX, m_fY + 29.0f) ;

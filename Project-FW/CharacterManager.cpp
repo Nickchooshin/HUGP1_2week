@@ -65,10 +65,17 @@ void CCharacterManager::Init()
 			race = DWARF ;
 
 		pCharacter = new CCharacter ;
-		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
 		pCharacter->Init(race, m_nRaceGenetic[i], m_bFemale[i], m_Status[i]) ;
+		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
 		m_CharacterList.push_back(pCharacter) ;
 	}
+}
+
+void CCharacterManager::SetOriginallyPosition(CCharacter *pCharacter)
+{
+	int nRaceGenetic = pCharacter->GetRaceGenetic() ;
+
+	pCharacter->SetPosition(m_fCharPosition[nRaceGenetic-1][0], m_fCharPosition[nRaceGenetic-1][1]) ;
 }
 
 void CCharacterManager::Mating()

@@ -22,6 +22,7 @@ public :
 
 	void Init() ;
 
+	void SetOriginallyPosition(CCharacter *pCharacter) ;
 	void Mating() ;
 
 	void Update() ;

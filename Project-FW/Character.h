@@ -33,6 +33,7 @@ public :
 	void Init() ;
 	void Init(Race race, int nRaceGenetic, bool bFemale, Status status) ;
 
+	void SetPosition(float fX, float fY) ;
 	void SetMating(bool bMating) ;
 
 	const Status GetStatus() const ;
@@ -40,8 +41,6 @@ public :
 	const bool IsFemale() const ;
 	const Race GetRace() const ;
 	const bool BeMating() const ;
-
-	CSprite* const GetSprite() const ;
 
 	const bool BeClick() const ;
 } ;

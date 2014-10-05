@@ -66,6 +66,14 @@ void CCharacter::Init(Race race, int nRaceGenetic, bool bFemale, Status status)
 	Init() ;
 }
 
+void CCharacter::SetPosition(float fX, float fY)
+{
+	m_fX = fX ;
+	m_fY = fY ;
+
+	m_pButton->SetPosition(m_fX, m_fY) ;
+}
+
 void CCharacter::SetMating(bool bMating)
 {
 	m_bMating = bMating ;
@@ -94,11 +102,6 @@ const Race CCharacter::GetRace() const
 const bool CCharacter::BeMating() const
 {
 	return m_bMating ;
-}
-
-CSprite* const CCharacter::GetSprite() const
-{
-	return m_pSprite ;
 }
 
 const bool CCharacter::BeClick() const
