@@ -98,8 +98,8 @@ void CCharacterManager::Mating()
 	for(i=0; i<12; i++)
 	{
 		pCharacter = new CCharacter ;
-		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
 		pCharacter->Init(m_Race[i/2], m_nRaceGenetic[i], m_bFemale[i], m_Status[i]) ;
+		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
 		m_CharacterList.push_back(pCharacter) ;
 	}
 }
@@ -139,7 +139,7 @@ void CCharacterManager::InitRaceGenetic()
 			if(!randCheck[r])
 			{
 				randCheck[r] = true ;
-				m_nRaceGenetic[r] = r+1 ;
+				m_nRaceGenetic[i] = r+1 ;
 				break ;
 			}
 		}

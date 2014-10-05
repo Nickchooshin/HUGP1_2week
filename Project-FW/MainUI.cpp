@@ -94,11 +94,15 @@ void CMainUI::Init()
 
 void CMainUI::SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter)
 {
-	m_pSelectedCharacter = pCharacter ;
-	m_pCharacterUI->SetCharacter(m_pSelectedCharacter) ;
-	m_pCharacterUI->SetVisible(bVisible) ;
+	if(pCharacter!=NULL)
+	{
+		m_pSelectedCharacter = pCharacter ;
+		m_pCharacterUI->SetCharacter(m_pSelectedCharacter) ;
 
-	SetActivateHeartButton(pCharacter->BeMating()) ;
+		SetActivateHeartButton(pCharacter->BeMating()) ;
+	}
+
+	m_pCharacterUI->SetVisible(bVisible) ;
 }
 
 void CMainUI::SetActivateHeartButton(bool bActivate)
@@ -156,6 +160,7 @@ void CMainUI::Update()
 	// 턴 진행버튼 클릭 시
 	if(m_pTurnButton->BeClick())
 	{
+		SetVisibleCharacterUI(false) ;
 		g_CharacterManager->Mating() ;
 	}
 
