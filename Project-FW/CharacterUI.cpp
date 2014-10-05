@@ -52,7 +52,7 @@ CCharacterUI::~CCharacterUI()
 
 void CCharacterUI::Init()
 {
-	float Height = g_D3dDevice->GetWinHeight() ;
+	float Height = (float)g_D3dDevice->GetWinHeight() ;
 
 	m_pUIBackground = new CSprite ;
 	m_pUIBackground->Init("Resource/Image/UI/Char/UI_Background.png") ;
@@ -127,10 +127,10 @@ void CCharacterUI::SetCharacter(CCharacter *pCharacter)
 	Status status = pCharacter->GetStatus() ;
 	int RaceGenetic = pCharacter->GetRaceGenetic() ;
 
-	m_pNumStr->SetNumber(status.Str) ;
-	m_pNumAgi->SetNumber(status.Agi) ;
-	m_pNumMana->SetNumber(status.Mana) ;
-	m_pNumInt->SetNumber(status.Int) ;
+	m_pNumStr->SetNumber((int)status.Str) ;
+	m_pNumAgi->SetNumber((int)status.Agi) ;
+	m_pNumMana->SetNumber((int)status.Mana) ;
+	m_pNumInt->SetNumber((int)status.Int) ;
 	m_pNumRaceGenetic->SetNumber(RaceGenetic) ;
 	m_bMating = pCharacter->BeMating() ;
 
@@ -144,19 +144,19 @@ void CCharacterUI::SetCharacter(CCharacter *pCharacter)
 
 	switch(pCharacter->GetRace())
 	{
-	case CCharacter::HUMAN :
+	case HUMAN :
 		y = 0.0f ;
 		break ;
 
-	case CCharacter::ELF :
+	case ELF :
 		y = 14.0f ;
 		break ;
 
-	case CCharacter::OAK :
+	case OAK :
 		y = 28.0f ;
 		break ;
 
-	case CCharacter::DWARF :
+	case DWARF :
 		y = 42.0f ;
 		break ;
 	}

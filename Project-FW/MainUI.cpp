@@ -8,6 +8,10 @@
 #include "UserData.h"
 #include "Mating.h"
 
+//
+#include "CharacterManager.h"
+//
+
 #include "D3dDevice.h"
 
 CMainUI::CMainUI() : m_pUIBackground(NULL),
@@ -47,7 +51,7 @@ CMainUI::~CMainUI()
 
 void CMainUI::Init()
 {
-	float Height=g_D3dDevice->GetWinHeight() ;
+	float Height = (float)g_D3dDevice->GetWinHeight() ;
 
 	m_pUIBackground = new CSprite ;
 	m_pUIBackground->Init("Resource/Image/UI/UI_Background.png") ;
@@ -131,8 +135,10 @@ void CMainUI::DeleteMatingChar()
 
 void CMainUI::Update()
 {
+	// 캐릭터 클릭시, 캐릭터 스텟 표시 UI Update
 	m_pCharacterUI->Update() ;
 
+	// 여관 하트버튼 클릭 시
 	for(int i=0; i<6; i++)
 	{
 		if(m_pHeartButton[i]->BeClick())
@@ -141,10 +147,16 @@ void CMainUI::Update()
 
 			m_pSelectedCharacter->SetMating(true) ;
 			m_pHeartButton[i]->SetActivate(false) ;
-			g_UserData->pMating[i]->SetCharacter(m_pSelectedCharacter) ;
+			g_UserData->pMating[i]->InsertCharacter(m_pSelectedCharacter) ;
 
 			break ;
 		}
+	}
+
+	// 턴 진행버튼 클릭 시
+	if(m_pTurnButton->BeClick())
+	{
+		g_CharacterManager->Mating() ;
 	}
 
 	m_pTurnButton->SetActivate(IsMatingFull()) ;

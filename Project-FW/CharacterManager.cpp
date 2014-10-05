@@ -1,11 +1,14 @@
 #include "CharacterManager.h"
 #include "MainUI.h"
 
+#include "UserData.h"
+#include "Mating.h"
+
 #include "D3dDevice.h"
 
 CCharacterManager::CCharacterManager()
 {
-	float Height = g_D3dDevice->GetWinHeight() ;
+	float Height = (float)g_D3dDevice->GetWinHeight() ;
 
 	m_fCharPosition[0][0] = 232.0f ;	m_fCharPosition[0][1] = Height - 143.0f ;
 	m_fCharPosition[1][0] = 446.0f ;	m_fCharPosition[1][1] = Height - 114.0f ;
@@ -35,19 +38,14 @@ CCharacterManager::CCharacterManager()
 }
 CCharacterManager::~CCharacterManager()
 {
-	const int num=m_CharacterList.size() ;
-
-	for(int i=0; i<num; i++)
-		delete m_CharacterList[i] ;
-
-	m_CharacterList.clear() ;
+	Clear() ;
 }
 
 void CCharacterManager::Init()
 {
 	int i ;
 	CCharacter *pCharacter ;
-	CCharacter::Race race ;
+	Race race ;
 
 	// Á¾Á·°ª
 	InitRaceGenetic() ;
@@ -58,17 +56,43 @@ void CCharacterManager::Init()
 	for(i=0; i<12; i++)
 	{
 		if(i/3==0)
-			race = CCharacter::HUMAN ;
+			race = HUMAN ;
 		else if(i/3==1)
-			race = CCharacter::ELF ;
+			race = ELF ;
 		else if(i/3==2)
-			race = CCharacter::OAK ;
+			race = OAK ;
 		else if(i/3==3)
-			race = CCharacter::DWARF ;
+			race = DWARF ;
 
 		pCharacter = new CCharacter ;
 		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
 		pCharacter->Init(race, m_nRaceGenetic[i], m_bFemale[i], m_Status[i]) ;
+		m_CharacterList.push_back(pCharacter) ;
+	}
+}
+
+void CCharacterManager::Mating()
+{
+	int i ;
+	CCharacter *pCharacter ;
+
+	for(i=0; i<6; i++)
+	{
+		g_UserData->pMating[i]->Mating(m_Status[i*2], m_Status[i*2+1], m_Race[i]) ;
+		//
+		g_UserData->pMating[i]->ClearCharacter() ;
+	}
+
+	InitRaceGenetic() ;
+	InitSex() ;
+
+	Clear() ;
+
+	for(i=0; i<12; i++)
+	{
+		pCharacter = new CCharacter ;
+		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
+		pCharacter->Init(m_Race[i/2], m_nRaceGenetic[i], m_bFemale[i], m_Status[i]) ;
 		m_CharacterList.push_back(pCharacter) ;
 	}
 }
@@ -147,4 +171,14 @@ void CCharacterManager::InitSex()
 			}
 		}
 	}
+}
+
+void CCharacterManager::Clear()
+{
+	const int num=m_CharacterList.size() ;
+
+	for(int i=0; i<num; i++)
+		delete m_CharacterList[i] ;
+
+	m_CharacterList.clear() ;
 }

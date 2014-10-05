@@ -35,7 +35,7 @@ Scene* GameScene::scene()
 
 void GameScene::Init()
 {
-	float Height=g_D3dDevice->GetWinHeight() ;
+	float Height = (float)g_D3dDevice->GetWinHeight() ;
 
 	g_CameraManager->AddCamera(new CCamera(), 0) ;
 

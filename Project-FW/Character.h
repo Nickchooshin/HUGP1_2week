@@ -12,10 +12,10 @@ typedef struct _Status
 	float Int ;
 } Status ;
 
+enum Race { NONE=-1, HUMAN, ELF, OAK, DWARF } ;
+
 class CCharacter : public CObject
 {
-public :
-	static enum Race { HUMAN=0, ELF, OAK, DWARF } ;
 private :
 	int m_nRaceGenetic ;
 	bool m_bFemale ;

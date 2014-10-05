@@ -3,12 +3,11 @@
 #include "Button.h"
 #include "ButtonManager.h"
 
-enum CCharacter::Race ;
-
 CCharacter::CCharacter() : m_nRaceGenetic(0),
 						   m_bFemale(false),
 						   m_nClothesType(0),
 						   m_Status(),
+						   m_Race(NONE),
 						   m_bMating(false),
 						   m_pButton(NULL)
 {
@@ -87,7 +86,7 @@ const bool CCharacter::IsFemale() const
 	return m_bFemale ;
 }
 
-const CCharacter::Race CCharacter::GetRace() const
+const Race CCharacter::GetRace() const
 {
 	return m_Race ;
 }
