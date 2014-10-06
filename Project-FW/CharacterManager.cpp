@@ -35,10 +35,22 @@ CCharacterManager::CCharacterManager()
 	m_Status[9].Str=5.0f ; m_Status[9].Agi=2.0f ; m_Status[9].Mana=2.0f ; m_Status[9].Int=3.0f ;
 	m_Status[10].Str=7.0f ; m_Status[10].Agi=2.0f ; m_Status[10].Mana=2.0f ; m_Status[10].Int=2.0f ;
 	m_Status[11].Str=6.0f ; m_Status[11].Agi=3.0f ; m_Status[11].Mana=2.0f ; m_Status[11].Int=2.0f ;
+
+	for(int i=0; i<12; i++)
+	{
+		m_pParentCharacter[i] = NULL ;
+		m_pChildCharacter[i] = NULL ;
+	}
 }
 CCharacterManager::~CCharacterManager()
 {
 	Clear() ;
+
+	for(int i=0; i<12; i++)
+	{
+		if(m_pChildCharacter[i]!=NULL)
+			delete m_pChildCharacter[i] ;
+	}
 }
 
 void CCharacterManager::Init()
@@ -67,7 +79,7 @@ void CCharacterManager::Init()
 		pCharacter = new CCharacter ;
 		pCharacter->Init(race, m_nRaceGenetic[i], m_bFemale[i], m_Status[i]) ;
 		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
-		m_CharacterList.push_back(pCharacter) ;
+		m_pParentCharacter[i] = pCharacter ;
 	}
 }
 
@@ -81,49 +93,70 @@ void CCharacterManager::SetOriginallyPosition(CCharacter *pCharacter)
 void CCharacterManager::Mating()
 {
 	int i ;
-	CCharacter *pCharacter ;
 
 	for(i=0; i<6; i++)
-	{
 		g_UserData->pMating[i]->Mating(m_Status[i*2], m_Status[i*2+1], m_Race[i]) ;
-		//
-		g_UserData->pMating[i]->ClearCharacter() ;
-	}
 
 	InitRaceGenetic() ;
 	InitSex() ;
 
-	Clear() ;
+	float x[2]={122.0f, 194.0f} ;
 
 	for(i=0; i<12; i++)
 	{
-		pCharacter = new CCharacter ;
-		pCharacter->Init(m_Race[i/2], m_nRaceGenetic[i], m_bFemale[i], m_Status[i]) ;
-		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
-		m_CharacterList.push_back(pCharacter) ;
+		m_pChildCharacter[i] = new CCharacter ;
+		m_pChildCharacter[i]->Init(m_Race[i/2], m_nRaceGenetic[i], m_bFemale[i], m_Status[i]) ;
+		m_pChildCharacter[i]->SetPosition(x[i%2], 455.0f - (71.0f * (i/2))) ;
 	}
+}
+
+void CCharacterManager::ShiftGenerations()
+{
+	Clear() ;
+
+	for(int i=0; i<12; i++)
+	{
+		m_pParentCharacter[i] = m_pChildCharacter[i] ;
+		m_pParentCharacter[i]->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
+		m_pChildCharacter[i] = NULL ;
+	}
+}
+
+const Status CCharacterManager::GetParentStatus(int Index) const
+{
+	return m_pParentCharacter[Index]->GetStatus() ;
+}
+
+const Status CCharacterManager::GetChildStatus(int Index) const
+{
+	return m_pChildCharacter[Index]->GetStatus() ;
 }
 
 void CCharacterManager::Update()
 {
-	const int num=m_CharacterList.size() ;
+	if(g_UserData->gameState==GROW)
+		return ;
 
-	for(int i=0; i<num; i++)
+	for(int i=0; i<12; i++)
 	{
-		m_CharacterList[i]->Update() ;
-		if(m_CharacterList[i]->BeClick())
+		m_pParentCharacter[i]->Update() ;
+		if(m_pParentCharacter[i]->BeClick())
 		{
-			g_MainUI->SetVisibleCharacterUI(true, m_CharacterList[i]) ;
+			g_MainUI->SetVisibleCharacterUI(true, m_pParentCharacter[i]) ;
 		}
 	}
 }
 
 void CCharacterManager::Render()
 {
-	const int num=m_CharacterList.size() ;
+	for(int i=0; i<12; i++)
+		m_pParentCharacter[i]->Render() ;
 
-	for(int i=0; i<num; i++)
-		m_CharacterList[i]->Render() ;
+	if(g_UserData->gameState==GROW)
+	{
+		for(int i=0; i<12; i++)
+			m_pChildCharacter[i]->Render() ;
+	}
 }
 
 void CCharacterManager::InitRaceGenetic()
@@ -182,10 +215,6 @@ void CCharacterManager::InitSex()
 
 void CCharacterManager::Clear()
 {
-	const int num=m_CharacterList.size() ;
-
-	for(int i=0; i<num; i++)
-		delete m_CharacterList[i] ;
-
-	m_CharacterList.clear() ;
+	for(int i=0; i<12; i++)
+		delete m_pParentCharacter[i] ;
 }

@@ -9,7 +9,8 @@ class CCharacter ;
 class CCharacterManager : public Singleton<CCharacterManager>
 {
 private :
-	std::vector<CCharacter*> m_CharacterList ;
+	CCharacter *m_pParentCharacter[12] ;
+	CCharacter *m_pChildCharacter[12] ;
 	int m_nRaceGenetic[12] ;
 	bool m_bFemale[12] ;
 	Status m_Status[12] ;
@@ -24,6 +25,10 @@ public :
 
 	void SetOriginallyPosition(CCharacter *pCharacter) ;
 	void Mating() ;
+	void ShiftGenerations() ;
+	
+	const Status GetParentStatus(int Index) const ;
+	const Status GetChildStatus(int Index) const ;
 
 	void Update() ;
 

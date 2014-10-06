@@ -1,16 +1,16 @@
 #include "MainUI.h"
 #include "Sprite.h"
 #include "Button.h"
+#include "YearNumberUI.h"
 #include "CharacterUI.h"
 #include "Character.h"
+#include "GrowStatusUI.h"
 
 #include "ButtonManager.h"
 #include "UserData.h"
 #include "Mating.h"
 
-//
 #include "CharacterManager.h"
-//
 
 #include "D3dDevice.h"
 
@@ -18,8 +18,11 @@ CMainUI::CMainUI() : m_pUIBackground(NULL),
 					 m_pMotelText(NULL),
 					 m_pTurnYear(NULL),
 					 m_pTurnButton(NULL),
+					 m_pYearNumberUI(NULL),
+					 m_pSelectedCharacter(NULL),
 					 m_pCharacterUI(NULL),
-					 m_pSelectedCharacter(NULL)
+					 m_pUIGrowBackground(NULL),
+					 m_pGrowStatusUI(NULL)
 {
 	for(int i=0; i<6; i++)
 	{
@@ -37,8 +40,14 @@ CMainUI::~CMainUI()
 		delete m_pTurnYear ;
 	if(m_pTurnButton!=NULL)
 		g_ButtonManager->DeleteButton(m_pTurnButton) ;
+	if(m_pYearNumberUI!=NULL)
+		delete m_pYearNumberUI ;
 	if(m_pCharacterUI!=NULL)
 		delete m_pCharacterUI ;
+	if(m_pUIGrowBackground!=NULL)
+		delete m_pUIGrowBackground ;
+	if(m_pGrowStatusUI!=NULL)
+		delete m_pGrowStatusUI ;
 
 	for(int i=0; i<6; i++)
 	{
@@ -84,12 +93,22 @@ void CMainUI::Init()
 	m_pTurnButton->Init(60.0f, 46.0f, "Resource/Image/UI/Turn_Button.png") ;
 	m_pTurnButton->SetPosition(536.0f, Height - 510.0f) ;
 	m_pTurnButton->SetIndex(0, 1, 2) ;
-
 	g_ButtonManager->AddButton(m_pTurnButton) ;
+
+	m_pYearNumberUI = new CYearNumberUI ;
+	m_pYearNumberUI->Init() ;
+	m_pYearNumberUI->SetPosition(627.0f, Height - 510.0f) ;
 
 	m_pCharacterUI = new CCharacterUI ;
 	m_pCharacterUI->Init() ;
 	m_pCharacterUI->SetVisible(false) ;
+
+	m_pUIGrowBackground = new CSprite ;
+	m_pUIGrowBackground->Init("Resource/Image/UI/Grow/UI_Background.png") ;
+	m_pUIGrowBackground->SetPosition(368.0f, Height - 240.0f) ;
+
+	m_pGrowStatusUI = new CGrowStatusUI ;
+	m_pGrowStatusUI->Init() ;
 }
 
 void CMainUI::SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter)
@@ -121,6 +140,11 @@ void CMainUI::SetActivateHeartButton(bool bActivate)
 		else
 			m_pHeartButton[i]->SetActivate(false) ;
 	}
+}
+
+void CMainUI::SetActivateTurnButton(bool bActivate)
+{
+	m_pTurnButton->SetActivate(bActivate) ;
 }
 
 void CMainUI::DeleteMatingChar()
@@ -157,14 +181,50 @@ void CMainUI::Update()
 		}
 	}
 
-	// 턴 진행버튼 클릭 시
-	if(m_pTurnButton->BeClick())
+	if(g_UserData->gameState==MATING)
 	{
-		SetVisibleCharacterUI(false) ;
-		g_CharacterManager->Mating() ;
+		// 짝이 다 지어졌을 경우, 턴 버튼을 활성화
+		m_pTurnButton->SetActivate(IsMatingFull()) ;
+
+		// 턴 진행버튼 클릭 시
+		if(m_pTurnButton->BeClick())
+		{
+			SetVisibleCharacterUI(false) ;
+			g_CharacterManager->Mating() ;
+			m_pGrowStatusUI->InitStatus() ;
+			g_UserData->gameState = GROW ;
+		}
+	}
+	else if(g_UserData->gameState==GROW)
+	{
+		// 성장 연출이 끝났을 때 or 끝나지 않았을 때
+		if(m_pGrowStatusUI->IsGrowEnd())
+		{
+			m_pTurnButton->SetActivate(true) ;
+
+			// 턴 진행버튼 클릭 시
+			if(m_pTurnButton->BeClick())
+			{
+				for(int i=0; i<6; i++)
+					g_UserData->pMating[i]->ClearCharacter() ;
+				g_CharacterManager->ShiftGenerations() ;
+				g_UserData->gameState = MATING ;
+			}
+		}
+		else
+		{
+			// 턴 진행버튼 클릭 시
+			if(m_pTurnButton->BeClick())
+			{
+				m_pTurnButton->SetActivate(false) ;
+				m_pGrowStatusUI->SetGrow(true) ;
+			}
+		}
+
+		m_pGrowStatusUI->Update() ;
 	}
 
-	m_pTurnButton->SetActivate(IsMatingFull()) ;
+	m_pYearNumberUI->SetNumber(g_UserData->nYear) ;
 }
 
 void CMainUI::Render()
@@ -178,8 +238,15 @@ void CMainUI::Render()
 		m_pHeartButton[i]->Render() ;
 	}
 
+	if(g_UserData->gameState==GROW)
+	{
+		m_pUIGrowBackground->Render() ;
+		m_pGrowStatusUI->Render() ;
+	}
+
 	m_pTurnYear->Render() ;
 	m_pTurnButton->Render() ;
+	m_pYearNumberUI->Render() ;
 
 	m_pCharacterUI->Render() ;
 	MatingRender() ;

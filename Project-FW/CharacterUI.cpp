@@ -84,23 +84,23 @@ void CCharacterUI::Init()
 	g_ButtonManager->AddButton(m_pCloseButton) ;
 	
 	m_pNumStr = new CStatusNumberUI ;
-	m_pNumStr->Init() ;
+	m_pNumStr->Init(1) ;
 	m_pNumStr->SetPosition(354.0f, Height - 186.0f) ;
 
 	m_pNumAgi = new CStatusNumberUI ;
-	m_pNumAgi->Init() ;
+	m_pNumAgi->Init(1) ;
 	m_pNumAgi->SetPosition(354.0f, Height - 206.0f) ;
 
 	m_pNumMana = new CStatusNumberUI ;
-	m_pNumMana->Init() ;
+	m_pNumMana->Init(1) ;
 	m_pNumMana->SetPosition(354.0f, Height - 226.0f) ;
 
 	m_pNumInt = new CStatusNumberUI ;
-	m_pNumInt->Init() ;
+	m_pNumInt->Init(1) ;
 	m_pNumInt->SetPosition(354.0f, Height - 246.0f) ;
 
 	m_pNumRaceGenetic = new CStatusNumberUI ;
-	m_pNumRaceGenetic->Init() ;
+	m_pNumRaceGenetic->Init(1) ;
 	m_pNumRaceGenetic->SetPosition(354.0f, Height - 266.0f) ;
 
 	m_pSex = new CSprite ;

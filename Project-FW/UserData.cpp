@@ -1,7 +1,7 @@
 #include "UserData.h"
 #include "Mating.h"
 
-CUserData::CUserData()
+CUserData::CUserData() : gameState(MATING)
 {
 	for(int i=0; i<6; i++)
 	{
@@ -19,9 +19,13 @@ CUserData::~CUserData()
 
 void CUserData::Init()
 {
+	nYear = 500 ;
+
 	for(int i=0; i<6; i++)
 	{
 		pMating[i] = new CMating ;
 		pMating[i]->Init() ;
 	}
+
+	gameState = MATING ;
 }

@@ -2,18 +2,18 @@
 
 class CNumberUI ;
 
-class CStatusNumberUI
+class CYearNumberUI
 {
 private :
 	float m_fX, m_fY ;
 	int m_nIndex ;
-	CNumberUI *m_pNumberUI[2] ;
+	CNumberUI *m_pNumberUI[3] ;
 
 public :
-	CStatusNumberUI() ;
-	~CStatusNumberUI() ;
+	CYearNumberUI() ;
+	~CYearNumberUI() ;
 
-	void Init(int TexType) ;
+	void Init() ;
 
 	void SetPosition(float fX, float fY) ;
 	void SetNumber(int nNum) ;

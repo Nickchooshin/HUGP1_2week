@@ -16,12 +16,12 @@ CStatusNumberUI::~CStatusNumberUI()
 	}
 }
 
-void CStatusNumberUI::Init()
+void CStatusNumberUI::Init(int TexType)
 {
 	for(int i=0; i<2; i++)
 	{
 		m_pNumberUI[i] = new CNumberUI ;
-		m_pNumberUI[i]->Init() ;
+		m_pNumberUI[i]->Init(TexType) ;
 	}
 }
 
@@ -54,10 +54,11 @@ void CStatusNumberUI::Render()
 {
 	int i ;
 	float x ;
+	float width=m_pNumberUI[0]->GetWidth() ;
 
 	for(i=0; i<m_nIndex; i++)
 	{
-		x = (i * 8.0f) - ((m_nIndex-1) * 4.0f) ;
+		x = (i * width) - ((m_nIndex-1) * (width/2.0f)) ;
 
 		m_pNumberUI[i]->SetPosition(m_fX - x, m_fY) ;
 		m_pNumberUI[i]->Render() ;

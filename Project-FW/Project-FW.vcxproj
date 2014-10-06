@@ -89,6 +89,8 @@
     <ClCompile Include="CharacterUI.cpp" />
     <ClCompile Include="D3dSystem.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GrowStatusNumberUI.cpp" />
+    <ClCompile Include="GrowStatusUI.cpp" />
     <ClCompile Include="InputDevice.cpp" />
     <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -106,6 +108,7 @@
     <ClCompile Include="UISprite.cpp" />
     <ClCompile Include="UserData.cpp" />
     <ClCompile Include="WinSystem.cpp" />
+    <ClCompile Include="YearNumberUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -118,6 +121,8 @@
     <ClInclude Include="D3dSystem.h" />
     <ClInclude Include="D3dDevice.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GrowStatusNumberUI.h" />
+    <ClInclude Include="GrowStatusUI.h" />
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="Joystick.h" />
     <ClInclude Include="Keyboard.h" />
@@ -136,6 +141,7 @@
     <ClInclude Include="UISprite.h" />
     <ClInclude Include="UserData.h" />
     <ClInclude Include="WinSystem.h" />
+    <ClInclude Include="YearNumberUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
