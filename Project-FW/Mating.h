@@ -23,6 +23,8 @@ public :
 	const bool BeFemale() const ;
 	const bool BeMale() const ;
 	const bool IsFull() const ;
+	CCharacter* GetFemale() ;
+	CCharacter* GetMale() ;
 	
 	void InsertCharacter(CCharacter *pCharacter) ;
 	bool DeleteCharacter(CCharacter *pCharacter) ;

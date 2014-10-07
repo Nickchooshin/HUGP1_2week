@@ -52,6 +52,16 @@ const bool CMating::IsFull() const
 	return false ;
 }
 
+CCharacter* CMating::GetFemale()
+{
+	return m_pFemale ;
+}
+
+CCharacter* CMating::GetMale()
+{
+	return m_pMale ;
+}
+
 void CMating::InsertCharacter(CCharacter *pCharacter)
 {
 	bool bFemale = pCharacter->IsFemale() ;

@@ -4,6 +4,7 @@
 
 #include "CharacterManager.h"
 #include "UserData.h"
+#include "Mating.h"
 
 #include "D3dDevice.h"
 
@@ -91,7 +92,10 @@ void CGrowStatusUI::InitStatus()
 	for(i=0; i<12; i++)
 	{
 		m_pChildStatusNum[i]->SetStatus( temp ) ;
-		m_pParentStatusNum[i]->SetStatus( g_CharacterManager->GetParentStatus(i) ) ;
+		if(i%2==0)
+			m_pParentStatusNum[i]->SetStatus( g_UserData->pMating[i/2]->GetMale()->GetStatus() ) ;
+		else
+			m_pParentStatusNum[i]->SetStatus( g_UserData->pMating[i/2]->GetFemale()->GetStatus() ) ;
 
 		for(j=0; j<5; j++)
 			m_GrowStatus[i][j] = temp ;
