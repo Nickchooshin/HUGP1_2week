@@ -1,4 +1,5 @@
 #include "CharacterManager.h"
+#include "Sprite.h"
 #include "MainUI.h"
 
 #include "UserData.h"
@@ -6,7 +7,7 @@
 
 #include "D3dDevice.h"
 
-CCharacterManager::CCharacterManager()
+CCharacterManager::CCharacterManager() : m_pAccessory(NULL)
 {
 	float Height = (float)g_D3dDevice->GetWinHeight() ;
 
@@ -51,6 +52,9 @@ CCharacterManager::~CCharacterManager()
 		if(m_pChildCharacter[i]!=NULL)
 			delete m_pChildCharacter[i] ;
 	}
+
+	if(m_pAccessory!=NULL)
+		delete m_pAccessory ;
 }
 
 void CCharacterManager::Init()
@@ -81,6 +85,9 @@ void CCharacterManager::Init()
 		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
 		m_pParentCharacter[i] = pCharacter ;
 	}
+
+	m_pAccessory = new CSprite ;
+	m_pAccessory->Init(48.0f, 42.0f, "Resource/Image/Char/Accessory.png") ;
 }
 
 void CCharacterManager::SetOriginallyPosition(CCharacter *pCharacter)
@@ -149,13 +156,16 @@ void CCharacterManager::Update()
 
 void CCharacterManager::Render()
 {
-	for(int i=0; i<12; i++)
-		m_pParentCharacter[i]->Render() ;
+	GameState state = g_UserData->gameState ;
 
-	if(g_UserData->gameState==GROW)
+	for(int i=0; i<12; i++)
 	{
-		for(int i=0; i<12; i++)
-			m_pChildCharacter[i]->Render() ;
+		//m_pParentCharacter[i]->Render() ;
+		RenderCharacter(m_pParentCharacter[i]) ;
+
+		if(state==GROW)
+			//m_pChildCharacter[i]->Render() ;
+			RenderCharacter(m_pChildCharacter[i]) ;
 	}
 }
 
@@ -210,6 +220,36 @@ void CCharacterManager::InitSex()
 				++cntFemale ;
 			}
 		}
+	}
+}
+
+void CCharacterManager::RenderCharacter(CCharacter *pCharacter)
+{
+	pCharacter->Render() ;
+
+	Status status = pCharacter->GetStatus() ;
+
+	m_pAccessory->SetPosition(pCharacter->GetPositionX(), pCharacter->GetPositionY()) ;
+
+	if(status.Str>=35.0f)
+	{
+		m_pAccessory->SetTextureUV(0.0f, 0.0f, 48.0f, 42.0f) ;
+		m_pAccessory->Render() ;
+	}
+	if(status.Agi>=35.0f)
+	{
+		m_pAccessory->SetTextureUV(48.0f, 0.0f, 96.0f, 42.0f) ;
+		m_pAccessory->Render() ;
+	}
+	if(status.Mana>=35.0f)
+	{
+		m_pAccessory->SetTextureUV(96.0f, 0.0f, 144.0f, 42.0f) ;
+		m_pAccessory->Render() ;
+	}
+	if(status.Int>=35.0f)
+	{
+		m_pAccessory->SetTextureUV(144.0f, 0.0f, 192.0f, 42.0f) ;
+		m_pAccessory->Render() ;
 	}
 }
 

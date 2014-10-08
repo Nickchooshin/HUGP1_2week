@@ -4,11 +4,13 @@
 #include "Character.h"
 #include <vector>
 
+class CSprite ;
 class CCharacter ;
 
 class CCharacterManager : public Singleton<CCharacterManager>
 {
 private :
+	CSprite *m_pAccessory ;
 	CCharacter *m_pParentCharacter[12] ;
 	CCharacter *m_pChildCharacter[12] ;
 	int m_nRaceGenetic[12] ;
@@ -36,6 +38,8 @@ public :
 private :
 	void InitRaceGenetic() ;
 	void InitSex() ;
+
+	void RenderCharacter(CCharacter *pCharacter) ;
 
 	void Clear() ;
 } ;
