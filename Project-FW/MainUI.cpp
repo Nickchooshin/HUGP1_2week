@@ -12,6 +12,9 @@
 
 #include "CharacterManager.h"
 
+#include "SceneManager.h"
+#include "EventScene.h"
+
 #include "D3dDevice.h"
 
 CMainUI::CMainUI() : m_pUIBackground(NULL),
@@ -115,6 +118,7 @@ void CMainUI::SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter)
 {
 	if(pCharacter!=NULL)
 	{
+		g_UserData->pEventCharacter = pCharacter ;
 		m_pSelectedCharacter = pCharacter ;
 		m_pCharacterUI->SetCharacter(m_pSelectedCharacter) ;
 
@@ -145,6 +149,12 @@ void CMainUI::SetActivateHeartButton(bool bActivate)
 void CMainUI::SetActivateTurnButton(bool bActivate)
 {
 	m_pTurnButton->SetActivate(bActivate) ;
+}
+
+void CMainUI::EventClear()
+{
+	m_pCharacterUI->SetCharacter(m_pSelectedCharacter) ;
+	m_pCharacterUI->SetEventButton(false) ;
 }
 
 void CMainUI::DeleteMatingChar()
@@ -209,6 +219,12 @@ void CMainUI::Update()
 					g_UserData->pMating[i]->ClearCharacter() ;
 				g_CharacterManager->ShiftGenerations() ;
 				g_UserData->gameState = MATING ;
+
+				if(g_UserData->nYear!=0 && g_UserData->nYear%100==0)
+				{
+					g_SceneManager->PushScene(EventScene::scene()) ;
+					m_pCharacterUI->SetEventButton(true) ;
+				}
 			}
 		}
 		else

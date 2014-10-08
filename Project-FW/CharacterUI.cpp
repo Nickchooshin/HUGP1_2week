@@ -7,6 +7,9 @@
 
 #include "MainUI.h"
 
+#include "SceneManager.h"
+#include "EventCheckScene.h"
+
 #include "D3dDevice.h"
 
 CCharacterUI::CCharacterUI() : m_fX(0.0f), m_fY(0.0f),
@@ -75,6 +78,7 @@ void CCharacterUI::Init()
 	m_pEventButton->Init(60.0f, 30.0f, "Resource/Image/UI/Char/Event_Button.png") ;
 	m_pEventButton->SetPosition(422.0f, Height - 240.0f) ;
 	m_pEventButton->SetIndex(0, 1, 2) ;
+	m_pEventButton->SetActivate(false) ;
 	g_ButtonManager->AddButton(m_pEventButton) ;
 
 	m_pCloseButton = new CButton ;
@@ -120,6 +124,11 @@ void CCharacterUI::SetVisible(bool bVisible)
 	m_pMatingCancleButton->SetVisible(m_bVisible & m_bMating) ;
 	m_pEventButton->SetVisible(m_bVisible) ;
 	m_pCloseButton->SetVisible(m_bVisible) ;
+}
+
+void CCharacterUI::SetEventButton(bool bActivate)
+{
+	m_pEventButton->SetActivate(bActivate) ;
 }
 
 void CCharacterUI::SetCharacter(CCharacter *pCharacter)
@@ -181,6 +190,7 @@ void CCharacterUI::Update()
 	}
 	else if(m_pEventButton->BeClick())
 	{
+		g_SceneManager->PushScene(EventCheckScene::scene()) ;
 	}
 	else if(m_pCloseButton->BeClick())
 	{

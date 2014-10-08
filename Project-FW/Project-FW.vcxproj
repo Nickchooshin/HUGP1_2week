@@ -88,6 +88,8 @@
     <ClCompile Include="CharacterManager.cpp" />
     <ClCompile Include="CharacterUI.cpp" />
     <ClCompile Include="D3dSystem.cpp" />
+    <ClCompile Include="EventCheckScene.cpp" />
+    <ClCompile Include="EventScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GrowStatusNumberUI.cpp" />
     <ClCompile Include="GrowStatusUI.cpp" />
@@ -120,6 +122,8 @@
     <ClInclude Include="CharacterUI.h" />
     <ClInclude Include="D3dSystem.h" />
     <ClInclude Include="D3dDevice.h" />
+    <ClInclude Include="EventCheckScene.h" />
+    <ClInclude Include="EventScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GrowStatusNumberUI.h" />
     <ClInclude Include="GrowStatusUI.h" />

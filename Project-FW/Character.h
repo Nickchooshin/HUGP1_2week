@@ -35,6 +35,7 @@ public :
 
 	void SetPosition(float fX, float fY) ;
 	void SetMating(bool bMating) ;
+	void StatusUp(Status status) ;
 
 	const Status GetStatus() const ;
 	const int GetRaceGenetic() const ;

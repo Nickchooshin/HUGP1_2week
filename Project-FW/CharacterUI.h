@@ -25,6 +25,7 @@ public :
 	void Init() ;
 
 	void SetVisible(bool bVisible) ;
+	void SetEventButton(bool bActivate) ;
 	void SetCharacter(CCharacter *pCharacter) ;
 
 	void Update() ;

@@ -15,8 +15,6 @@
 #include "CharacterManager.h"
 #include "UserData.h"
 
-CCharacterUI *pCharUI=NULL ;
-
 GameScene::GameScene() : m_pMap(NULL)
 {
 }

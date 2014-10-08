@@ -34,6 +34,7 @@ public :
 	void SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter=0) ;
 	void SetActivateHeartButton(bool bActivate) ;
 	void SetActivateTurnButton(bool bActivate) ;
+	void EventClear() ;
 	
 	void DeleteMatingChar() ;
 

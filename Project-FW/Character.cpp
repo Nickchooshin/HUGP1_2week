@@ -79,6 +79,14 @@ void CCharacter::SetMating(bool bMating)
 	m_bMating = bMating ;
 }
 
+void CCharacter::StatusUp(Status status)
+{
+	m_Status.Str += status.Str ;
+	m_Status.Agi += status.Agi ;
+	m_Status.Mana += status.Mana ;
+	m_Status.Int += status.Int ;
+}
+
 const Status CCharacter::GetStatus() const
 {
 	return m_Status ;

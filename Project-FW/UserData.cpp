@@ -1,7 +1,9 @@
 #include "UserData.h"
 #include "Mating.h"
+#include "Character.h"
 
-CUserData::CUserData() : gameState(MATING)
+CUserData::CUserData() : gameState(MATING),
+						 pEventCharacter(0)
 {
 	for(int i=0; i<6; i++)
 	{

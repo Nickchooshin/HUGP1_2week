@@ -1,13 +1,15 @@
 #pragma once
 
 #include "Singleton.h"
+#include <vector>
 
 class Scene ;
 
 class SceneManager : public Singleton<SceneManager>
 {
 private :
-	Scene *m_pScene ;
+	std::vector<Scene*> m_SceneList ;
+	int m_nSceneIndex ;
 
 public :
 	SceneManager() ;
@@ -22,6 +24,8 @@ public :
 	void DestroyScene() ;
 
 	void ChangeScene(Scene *pScene) ;
+	void PushScene(Scene *pScene) ;
+	void PopScene() ;
 } ;
 
 #define g_SceneManager SceneManager::GetInstance()
