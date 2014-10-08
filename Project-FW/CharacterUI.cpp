@@ -19,6 +19,7 @@ CCharacterUI::CCharacterUI() : m_fX(0.0f), m_fY(0.0f),
 							   m_pCloseButton(NULL),
 							   m_pNumStr(NULL), m_pNumAgi(NULL), m_pNumMana(NULL), m_pNumInt(NULL), m_pNumRaceGenetic(NULL),
 							   m_pSex(NULL), m_pRace(NULL),
+							   m_pDialog(NULL),
 							   m_bVisible(true)
 {
 }
@@ -51,6 +52,8 @@ CCharacterUI::~CCharacterUI()
 		delete m_pSex ;
 	if(m_pRace!=NULL)
 		delete m_pRace ;
+	if(m_pDialog!=NULL)
+		delete m_pDialog ;
 }
 
 void CCharacterUI::Init()
@@ -114,6 +117,10 @@ void CCharacterUI::Init()
 	m_pRace = new CSprite ;
 	m_pRace->Init(56.0f, 14.0f, "Resource/Image/UI/Char/Race.png") ;
 	m_pRace->SetPosition(346.0f, Height - 166.0f) ;
+
+	m_pDialog = new CSprite ;
+	m_pDialog->Init(106.0f, 44.0f, "Resource/Image/Char/Character_Dialog.png") ;
+	m_pDialog->SetPosition(328.0f, 238.0f) ;
 }
 
 void CCharacterUI::SetVisible(bool bVisible)
@@ -151,25 +158,28 @@ void CCharacterUI::SetCharacter(CCharacter *pCharacter)
 		y = 0.0f ;
 	m_pSex->SetTextureUV(0.0f, y, 17.0f, y+14.0f) ;
 
+	int Index ;
+
 	switch(pCharacter->GetRace())
 	{
 	case HUMAN :
-		y = 0.0f ;
+		Index = 0 ;
 		break ;
 
 	case ELF :
-		y = 14.0f ;
+		Index = 1 ;
 		break ;
 
 	case OAK :
-		y = 28.0f ;
+		Index = 2 ;
 		break ;
 
 	case DWARF :
-		y = 42.0f ;
+		Index = 3 ;
 		break ;
 	}
-	m_pRace->SetTextureUV(0.0f, y, 56.0f, y+14.0f) ;
+	m_pRace->SetTextureUV(0.0f, (Index * 14.0f), 56.0f, ((Index + 1) * 14.0f)) ;
+	m_pDialog->SetTextureUV(0.0f, (Index * 44.0f), 106.0f, ((Index + 1) * 44.0f)) ;
 }
 
 void CCharacterUI::Update()
@@ -219,4 +229,5 @@ void CCharacterUI::Render()
 
 	m_pSex->Render() ;
 	m_pRace->Render() ;
+	m_pDialog->Render() ;
 }
