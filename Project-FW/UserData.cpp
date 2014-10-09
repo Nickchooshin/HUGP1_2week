@@ -23,7 +23,7 @@ void CUserData::Init()
 {
 	InitAllocation() ;
 
-	nYear = 0 ;
+	nYear = 500 ;
 
 	gameState = MATING ;
 

@@ -15,7 +15,8 @@
 #include "CharacterManager.h"
 #include "UserData.h"
 
-GameScene::GameScene() : m_pMap(NULL)
+GameScene::GameScene() : m_pMap(NULL),
+						 m_pBGM(NULL)
 {
 }
 GameScene::~GameScene()
@@ -46,10 +47,15 @@ void GameScene::Init()
 	g_CharacterManager->Init() ;
 
 	g_UserData->Init() ;
+	
+	m_pBGM = g_MusicManager->LoadMusic("Resource/Sound/Main_game.mid", true) ;
+	g_MusicManager->PlayMusic(m_pBGM, 0) ;
 }
 
 void GameScene::Destroy()
 {
+	g_MusicManager->StopMusic(0) ;
+	g_MusicManager->StopMusic(1) ;
 }
 
 void GameScene::Update(float dt)

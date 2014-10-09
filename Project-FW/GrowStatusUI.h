@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Character.h"
+#include <fmod.hpp>
 
 class CGrowStatusNumberUI ;
 class CSprite ;
@@ -17,6 +18,8 @@ private :
 
 	float m_fTime ;
 	int m_nTurnCount ;
+
+	FMOD::Sound *m_pEffect ;
 
 public :
 	CGrowStatusUI() ;

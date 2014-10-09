@@ -15,7 +15,8 @@
 #include "D3dDevice.h"
 
 TitleScene::TitleScene() : m_pBackground(NULL),
-						   m_pStart(NULL), m_pExit(NULL)
+						   m_pStart(NULL), m_pExit(NULL),
+						   m_pBGM(NULL)
 {
 }
 TitleScene::~TitleScene()
@@ -57,10 +58,15 @@ void TitleScene::Init()
 	m_pExit->SetPosition(480.0f, Height - 307.0f) ;
 	m_pExit->SetIndex(0, 1, 1) ;
 	g_ButtonManager->AddButton(m_pExit) ;
+
+	m_pBGM = g_MusicManager->LoadMusic("Resource/Sound/Main_screen.mid", true) ;
+	g_MusicManager->PlayMusic(m_pBGM, 0) ;
 }
 
 void TitleScene::Destroy()
 {
+	g_MusicManager->StopMusic(0) ;
+	g_MusicManager->StopMusic(1) ;
 }
 
 void TitleScene::Update(float dt)

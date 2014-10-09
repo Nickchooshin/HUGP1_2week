@@ -4,12 +4,15 @@
 #include "Mouse.h"
 #include "TextureManager.h"
 
+#include "MusicManager.h"
+
 CButton::CButton() : m_fX(0.0f), m_fY(0.0f),
 					 m_fWidth(0.0f), m_fHeight(0.0f),
 					 m_nState(0), m_nPrevState(-1),
 					 m_bActivate(true), m_bClick(false),
 					 m_bVisible(true),
-					 m_pSprite(NULL)
+					 m_pSprite(NULL),
+					 m_pClickDown(NULL), m_pClickUp(NULL)
 {
 	for(int i=0; i<3; i++)
 		m_nIndex[i] = 0 ;
@@ -28,6 +31,9 @@ void CButton::Init(char *texfile)
 	D3DXIMAGE_INFO TexInfo = g_TextureManager->GetTexInfo(texfile) ;
 	m_fWidth = TexInfo.Width ;
 	m_fHeight = TexInfo.Height ;
+
+	m_pClickDown = g_MusicManager->LoadMusic("Resource/Sound/Butten_click_down.mp3", false, false) ;
+	m_pClickUp = g_MusicManager->LoadMusic("Resource/Sound/Butten_click_up.mp3", false, false) ;
 }
 
 void CButton::Init(float Width, float Height, char *texfile)
@@ -37,6 +43,9 @@ void CButton::Init(float Width, float Height, char *texfile)
 
 	m_fWidth = Width ;
 	m_fHeight = Height ;
+
+	m_pClickDown = g_MusicManager->LoadMusic("Resource/Sound/Butten_click_down.mp3", false, false) ;
+	m_pClickUp = g_MusicManager->LoadMusic("Resource/Sound/Butten_click_up.mp3", false, false) ;
 }
 
 void CButton::SetPosition(float fX, float fY)
@@ -69,11 +78,20 @@ void CButton::ClickState(int x, int y, bool bClick, bool bPress)
 		return ;
 
 	if(bPress && CollisionCheck(x, y))
+	{
+		g_MusicManager->PlayMusic(m_pClickDown, 1) ;
 		m_bClick = true ;
+	}
 	else if(bClick && CollisionCheck(x, y))
+	{
+		if(m_nState!=m_nIndex[1])
+			g_MusicManager->PlayMusic(m_pClickUp, 1) ;
 		m_nState = m_nIndex[1] ;
+	}
 	else
+	{
 		m_nState = m_nIndex[0] ;
+	}
 }
 
 const bool CButton::BeClick() const

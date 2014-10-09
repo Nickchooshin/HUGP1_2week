@@ -14,7 +14,8 @@
 #include "D3dDevice.h"
 
 EventScene::EventScene() : m_pDescription(NULL),
-						   m_pButton(NULL)
+						   m_pButton(NULL),
+						   m_pEffect(NULL)
 {
 }
 EventScene::~EventScene()
@@ -54,15 +55,18 @@ void EventScene::Init()
 	else if(g_UserData->nYear==0)
 		m_pDescription->Init(736.0f, 200.0f, "Resource/Image/Ending/Ending_Event.png") ;
 
-
 	m_pButton = new CButton ;
 	m_pButton->Init(76.0f, 32.0f, "Resource/Image/Event/Event_Close.png") ;
 	m_pButton->SetPosition(692.0f, Height - 458.0f) ;
 	m_pButton->SetIndex(0, 1, 1) ;
+	
+	m_pEffect = g_MusicManager->LoadMusic("Resource/Sound/Event_notification.mp3", false, false) ;
+	g_MusicManager->PlayMusic(m_pEffect, 1) ;
 }
 
 void EventScene::Destroy()
 {
+	g_MusicManager->StopMusic(1) ;
 }
 
 void EventScene::Update(float dt)

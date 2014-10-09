@@ -19,7 +19,8 @@ EndingScene::EndingScene() : m_pDirect(NULL),
 							 m_pButton(NULL),
 							 m_nFrame(0), m_nPrevFrame(-1),
 							 m_fTime(0.0f),
-							 m_bAnimation(true)
+							 m_bAnimation(true),
+							 m_pBGM(NULL)
 {
 }
 EndingScene::~EndingScene()
@@ -69,10 +70,15 @@ void EndingScene::Init()
 	m_pButton->Init(76.0f, 32.0f, "Resource/Image/Event/Event_Close.png") ;
 	m_pButton->SetPosition(900.0f, Height - 500.0f) ;
 	m_pButton->SetIndex(0, 1, 1) ;
+	
+	m_pBGM = g_MusicManager->LoadMusic("Resource/Sound/Ending.mid", true) ;
+	g_MusicManager->PlayMusic(m_pBGM, 0) ;
 }
 
 void EndingScene::Destroy()
 {
+	g_MusicManager->StopMusic(0) ;
+	g_MusicManager->StopMusic(1) ;
 }
 
 void EndingScene::Update(float dt)

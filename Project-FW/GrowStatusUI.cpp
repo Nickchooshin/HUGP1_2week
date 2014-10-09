@@ -6,12 +6,15 @@
 #include "UserData.h"
 #include "Mating.h"
 
+#include "MusicManager.h"
+
 #include "D3dDevice.h"
 
 CGrowStatusUI::CGrowStatusUI() : m_pLine(NULL),
 								 m_bGrow(false), m_bGrowEnd(false),
 								 m_fTime(-1.0f),
-								 m_nTurnCount(0)
+								 m_nTurnCount(0),
+								 m_pEffect(NULL)
 {
 	for(int i=0; i<12; i++)
 	{
@@ -64,6 +67,8 @@ void CGrowStatusUI::Init()
 	m_pLine->Init("Resource/Image/UI/Grow/Line.png") ;
 
 	InitData() ;
+
+	m_pEffect = g_MusicManager->LoadMusic("Resource/Sound/Grow.mp3", false, false) ;
 }
 
 void CGrowStatusUI::InitData()
@@ -183,6 +188,7 @@ void CGrowStatusUI::Update()
 					m_pChildStatusNum[i]->SetStatus(m_ChildStatus[i]) ;
 				}
 
+				g_MusicManager->PlayMusic(m_pEffect, 1) ;
 				g_UserData->nYear -= (seconds - m_nTurnCount) * 5 ;
 				m_nTurnCount = seconds ;
 			}

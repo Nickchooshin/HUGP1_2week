@@ -1,5 +1,7 @@
 #pragma once
 
+#include <fmod.hpp>
+
 class CSprite ;
 
 class CButton
@@ -12,6 +14,8 @@ private :
 	bool m_bActivate, m_bClick ;
 	bool m_bVisible ;
 	CSprite *m_pSprite ;
+
+	FMOD::Sound *m_pClickDown, *m_pClickUp ;
 
 public :
 	CButton() ;
