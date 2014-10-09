@@ -209,6 +209,7 @@
     <ClInclude Include="OpeningScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Input">
@@ -259,5 +260,11 @@
     <Filter Include="UI\Number">
       <UniqueIdentifier>{ab583307-b32e-4669-8a7a-19af6be544db}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project-FW.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\Icon.ico" />
   </ItemGroup>
 </Project>
