@@ -88,6 +88,7 @@
     <ClCompile Include="CharacterManager.cpp" />
     <ClCompile Include="CharacterUI.cpp" />
     <ClCompile Include="D3dSystem.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="EventCheckScene.cpp" />
     <ClCompile Include="EventScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StatusNumberUI.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UISprite.cpp" />
     <ClCompile Include="UserData.cpp" />
     <ClCompile Include="WinSystem.cpp" />
@@ -122,6 +124,7 @@
     <ClInclude Include="CharacterUI.h" />
     <ClInclude Include="D3dSystem.h" />
     <ClInclude Include="D3dDevice.h" />
+    <ClInclude Include="EndingScene.h" />
     <ClInclude Include="EventCheckScene.h" />
     <ClInclude Include="EventScene.h" />
     <ClInclude Include="GameScene.h" />
@@ -142,6 +145,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StatusNumberUI.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="UISprite.h" />
     <ClInclude Include="UserData.h" />
     <ClInclude Include="WinSystem.h" />

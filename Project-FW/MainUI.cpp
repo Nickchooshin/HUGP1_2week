@@ -65,53 +65,12 @@ void CMainUI::Init()
 {
 	float Height = (float)g_D3dDevice->GetWinHeight() ;
 
-	m_pUIBackground = new CSprite ;
-	m_pUIBackground->Init("Resource/Image/UI/UI_Background.png") ;
-	m_pUIBackground->SetPosition(480.0f, Height - 270.0f) ;
+	InitAllocation() ;
 
 	for(int i=0; i<6; i++)
-	{
-		m_pMotelBackground[i] = new CSprite ;
-		m_pMotelBackground[i]->Init("Resource/Image/UI/Motel_Background.png") ;
-		m_pMotelBackground[i]->SetPosition(849.0f, Height - (94.0f + (71.0f * i))) ;
-
-		m_pHeartButton[i] = new CButton ;
-		m_pHeartButton[i]->Init(60.0f, 60.0f, "Resource/Image/UI/Heart_Button.png") ;
-		m_pHeartButton[i]->SetPosition(777.0f, Height - (94.0f + (71.0f * i))) ;
-		m_pHeartButton[i]->SetIndex(0, 1, 2) ;
 		m_pHeartButton[i]->SetActivate(false) ;
-		
-		g_ButtonManager->AddButton(m_pHeartButton[i]) ;
-	}
 
-	m_pMotelText = new CSprite ;
-	m_pMotelText->Init("Resource/Image/UI/Motel_Text.png") ;
-	m_pMotelText->SetPosition(848.0f, Height - 36.0f) ;
-
-	m_pTurnYear = new CSprite ;
-	m_pTurnYear->Init("Resource/Image/UI/Turn_Year.png") ;
-	m_pTurnYear->SetPosition(655.0f, Height - 510.0f) ;
-
-	m_pTurnButton = new CButton ;
-	m_pTurnButton->Init(60.0f, 46.0f, "Resource/Image/UI/Turn_Button.png") ;
-	m_pTurnButton->SetPosition(536.0f, Height - 510.0f) ;
-	m_pTurnButton->SetIndex(0, 1, 2) ;
-	g_ButtonManager->AddButton(m_pTurnButton) ;
-
-	m_pYearNumberUI = new CYearNumberUI ;
-	m_pYearNumberUI->Init() ;
-	m_pYearNumberUI->SetPosition(627.0f, Height - 510.0f) ;
-
-	m_pCharacterUI = new CCharacterUI ;
-	m_pCharacterUI->Init() ;
-	m_pCharacterUI->SetVisible(false) ;
-
-	m_pUIGrowBackground = new CSprite ;
-	m_pUIGrowBackground->Init("Resource/Image/UI/Grow/UI_Background.png") ;
-	m_pUIGrowBackground->SetPosition(368.0f, Height - 240.0f) ;
-
-	m_pGrowStatusUI = new CGrowStatusUI ;
-	m_pGrowStatusUI->Init() ;
+	SetVisibleCharacterUI(false) ;
 }
 
 void CMainUI::SetVisibleCharacterUI(bool bVisible, CCharacter *pCharacter)
@@ -220,7 +179,7 @@ void CMainUI::Update()
 				g_CharacterManager->ShiftGenerations() ;
 				g_UserData->gameState = MATING ;
 
-				if(g_UserData->nYear!=0 && g_UserData->nYear%100==0)
+				if(g_UserData->nYear%100==0)
 				{
 					g_SceneManager->PushScene(EventScene::scene()) ;
 					m_pCharacterUI->SetEventButton(true) ;
@@ -266,6 +225,63 @@ void CMainUI::Render()
 
 	m_pCharacterUI->Render() ;
 	MatingRender() ;
+}
+
+void CMainUI::InitAllocation()
+{
+	if(m_bInit)
+		return ;
+
+	m_bInit = true ;
+
+	float Height = (float)g_D3dDevice->GetWinHeight() ;
+
+	m_pUIBackground = new CSprite ;
+	m_pUIBackground->Init("Resource/Image/UI/UI_Background.png") ;
+	m_pUIBackground->SetPosition(480.0f, Height - 270.0f) ;
+
+	for(int i=0; i<6; i++)
+	{
+		m_pMotelBackground[i] = new CSprite ;
+		m_pMotelBackground[i]->Init("Resource/Image/UI/Motel_Background.png") ;
+		m_pMotelBackground[i]->SetPosition(849.0f, Height - (94.0f + (71.0f * i))) ;
+
+		m_pHeartButton[i] = new CButton ;
+		m_pHeartButton[i]->Init(60.0f, 60.0f, "Resource/Image/UI/Heart_Button.png") ;
+		m_pHeartButton[i]->SetPosition(777.0f, Height - (94.0f + (71.0f * i))) ;
+		m_pHeartButton[i]->SetIndex(0, 1, 2) ;
+		
+		g_ButtonManager->AddButton(m_pHeartButton[i]) ;
+	}
+
+	m_pMotelText = new CSprite ;
+	m_pMotelText->Init("Resource/Image/UI/Motel_Text.png") ;
+	m_pMotelText->SetPosition(848.0f, Height - 36.0f) ;
+
+	m_pTurnYear = new CSprite ;
+	m_pTurnYear->Init("Resource/Image/UI/Turn_Year.png") ;
+	m_pTurnYear->SetPosition(655.0f, Height - 510.0f) ;
+
+	m_pTurnButton = new CButton ;
+	m_pTurnButton->Init(60.0f, 46.0f, "Resource/Image/UI/Turn_Button.png") ;
+	m_pTurnButton->SetPosition(536.0f, Height - 510.0f) ;
+	m_pTurnButton->SetIndex(0, 1, 2) ;
+	g_ButtonManager->AddButton(m_pTurnButton) ;
+
+	m_pYearNumberUI = new CYearNumberUI ;
+	m_pYearNumberUI->Init() ;
+	m_pYearNumberUI->SetPosition(627.0f, Height - 510.0f) ;
+
+	m_pCharacterUI = new CCharacterUI ;
+	m_pCharacterUI->Init() ;
+	m_pCharacterUI->SetVisible(false) ;
+
+	m_pUIGrowBackground = new CSprite ;
+	m_pUIGrowBackground->Init("Resource/Image/UI/Grow/UI_Background.png") ;
+	m_pUIGrowBackground->SetPosition(368.0f, Height - 240.0f) ;
+
+	m_pGrowStatusUI = new CGrowStatusUI ;
+	m_pGrowStatusUI->Init() ;
 }
 
 bool CMainUI::IsMatingSlotEmpty(bool bSelectedCharFemale, int nMatingSlotIndex)

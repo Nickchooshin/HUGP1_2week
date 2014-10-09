@@ -81,7 +81,7 @@ void CCharacterUI::Init()
 	m_pEventButton->Init(60.0f, 30.0f, "Resource/Image/UI/Char/Event_Button.png") ;
 	m_pEventButton->SetPosition(422.0f, Height - 240.0f) ;
 	m_pEventButton->SetIndex(0, 1, 2) ;
-	m_pEventButton->SetActivate(false) ;
+	//m_pEventButton->SetActivate(false) ;
 	g_ButtonManager->AddButton(m_pEventButton) ;
 
 	m_pCloseButton = new CButton ;

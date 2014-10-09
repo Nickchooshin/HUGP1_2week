@@ -17,7 +17,7 @@ private :
 	bool m_bCheckSuccess ;
 	int m_nNowCheckIndex ;
 	int m_nCheckNum, m_nRewardNum ;
-	int m_nCheckIndex[2], m_nRewardIndex[2] ;
+	int m_nCheckIndex[4], m_nRewardIndex[4] ;
 
 	float m_fY ;
 	float m_fTime ;

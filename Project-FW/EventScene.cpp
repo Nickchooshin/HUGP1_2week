@@ -51,6 +51,9 @@ void EventScene::Init()
 		m_pDescription->SetTextureUV(0.0f, 400.0f, 736.0f, 600.0f) ;
 	else if(g_UserData->nYear==100)
 		m_pDescription->SetTextureUV(0.0f, 600.0f, 736.0f, 800.0f) ;
+	else if(g_UserData->nYear==0)
+		m_pDescription->Init(736.0f, 200.0f, "Resource/Image/Ending/Ending_Event.png") ;
+
 
 	m_pButton = new CButton ;
 	m_pButton->Init(76.0f, 32.0f, "Resource/Image/Event/Event_Close.png") ;

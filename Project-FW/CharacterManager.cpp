@@ -63,6 +63,10 @@ void CCharacterManager::Init()
 	CCharacter *pCharacter ;
 	Race race ;
 
+	// 메모리 할당
+	InitAllocation() ;
+	Clear() ;
+
 	// 종족값
 	InitRaceGenetic() ;
 	// 남녀
@@ -85,9 +89,6 @@ void CCharacterManager::Init()
 		pCharacter->SetPosition(m_fCharPosition[m_nRaceGenetic[i]-1][0], m_fCharPosition[m_nRaceGenetic[i]-1][1]) ;
 		m_pParentCharacter[i] = pCharacter ;
 	}
-
-	m_pAccessory = new CSprite ;
-	m_pAccessory->Init(48.0f, 42.0f, "Resource/Image/Char/Accessory.png") ;
 }
 
 void CCharacterManager::SetOriginallyPosition(CCharacter *pCharacter)
@@ -119,7 +120,7 @@ void CCharacterManager::Mating()
 
 void CCharacterManager::ShiftGenerations()
 {
-	Clear() ;
+	ParentClear() ;
 
 	for(int i=0; i<12; i++)
 	{
@@ -160,13 +161,22 @@ void CCharacterManager::Render()
 
 	for(int i=0; i<12; i++)
 	{
-		//m_pParentCharacter[i]->Render() ;
 		RenderCharacter(m_pParentCharacter[i]) ;
 
 		if(state==GROW)
-			//m_pChildCharacter[i]->Render() ;
 			RenderCharacter(m_pChildCharacter[i]) ;
 	}
+}
+
+void CCharacterManager::InitAllocation()
+{
+	if(m_bInit)
+		return ;
+
+	m_bInit = true ;
+
+	m_pAccessory = new CSprite ;
+	m_pAccessory->Init(48.0f, 42.0f, "Resource/Image/Char/Accessory.png") ;
 }
 
 void CCharacterManager::InitRaceGenetic()
@@ -253,8 +263,26 @@ void CCharacterManager::RenderCharacter(CCharacter *pCharacter)
 	}
 }
 
-void CCharacterManager::Clear()
+void CCharacterManager::ParentClear()
 {
 	for(int i=0; i<12; i++)
-		delete m_pParentCharacter[i] ;
+	{
+		if(m_pParentCharacter[i]!=NULL)
+			delete m_pParentCharacter[i] ;
+	}
+}
+
+void CCharacterManager::ChildClear()
+{
+	for(int i=0; i<12; i++)
+	{
+		if(m_pChildCharacter[i]!=NULL)
+			delete m_pChildCharacter[i] ;
+	}
+}
+
+void CCharacterManager::Clear()
+{
+	ParentClear() ;
+	ChildClear() ;
 }

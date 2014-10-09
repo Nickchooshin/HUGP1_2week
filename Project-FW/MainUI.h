@@ -42,6 +42,8 @@ public :
 
 	void Render() ;
 private :
+	void InitAllocation() ;
+
 	bool IsMatingSlotEmpty(bool bSelectedCharFemale, int nMatingSlotIndex) ;
 	void MatingRender() ;
 	bool IsMatingFull() ;

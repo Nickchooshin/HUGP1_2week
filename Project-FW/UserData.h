@@ -15,11 +15,15 @@ public :
 	CMating *pMating[6] ;
 	GameState gameState ;
 
+	bool bEndStatus, bEndAgi ;
+
 public :
 	CUserData() ;
 	~CUserData() ;
 
 	void Init() ;
+private :
+	void InitAllocation() ;
 } ;
 
 #define g_UserData CUserData::GetInstance()

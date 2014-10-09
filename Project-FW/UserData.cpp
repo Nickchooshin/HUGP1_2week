@@ -21,13 +21,26 @@ CUserData::~CUserData()
 
 void CUserData::Init()
 {
-	nYear = 500 ;
+	InitAllocation() ;
+
+	nYear = 0 ;
+
+	gameState = MATING ;
+
+	bEndStatus = false ;
+	bEndAgi = false ;
+}
+
+void CUserData::InitAllocation()
+{
+	if(m_bInit)
+		return ;
+
+	m_bInit = true ;
 
 	for(int i=0; i<6; i++)
 	{
 		pMating[i] = new CMating ;
 		pMating[i]->Init() ;
 	}
-
-	gameState = MATING ;
 }

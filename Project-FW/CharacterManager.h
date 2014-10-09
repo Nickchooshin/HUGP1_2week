@@ -36,11 +36,14 @@ public :
 
 	void Render() ;
 private :
+	void InitAllocation() ;
 	void InitRaceGenetic() ;
 	void InitSex() ;
 
 	void RenderCharacter(CCharacter *pCharacter) ;
 
+	void ParentClear() ;
+	void ChildClear() ;
 	void Clear() ;
 } ;
 

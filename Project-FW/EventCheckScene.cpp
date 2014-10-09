@@ -12,6 +12,8 @@
 #include "UserData.h"
 #include "MainUI.h"
 
+#include "EndingScene.h"
+
 #include "D3dDevice.h"
 
 EventCheckScene::EventCheckScene() : m_pResult(NULL),
@@ -106,6 +108,29 @@ void EventCheckScene::Update(float dt)
 			{
 				m_fTime = 0.0f ;
 				m_bCheck = true ;
+
+				if(g_UserData->nYear==0)
+				{
+					bool bStatusCheck=true ;
+					bool bAgiCheck=true ;
+
+					for(int i=0; i<m_nCheckNum; i++)
+					{
+						if(m_nCheckIndex[i]%2==1)
+						{
+							if(m_nCheckIndex[i]==3)
+								bAgiCheck = false ;
+							else
+								bStatusCheck = false ;
+						}
+					}
+
+					g_UserData->bEndStatus = bStatusCheck ;
+					g_UserData->bEndAgi = bAgiCheck ;
+					g_SceneManager->PopScene() ;
+					g_SceneManager->ChangeScene(EndingScene::scene()) ;
+					return ;
+				}
 			}
 		}
 
@@ -237,6 +262,15 @@ void EventCheckScene::StatusCheck()
 		status.Str = 28.0f ;
 
 		RewardStatus.Agi = 5.0f ;
+		break ;
+
+	case 0 :
+		resultIndex = 0 ;
+		m_nCheckNum = 4 ;
+		status.Str = 25.0f ;
+		status.Agi = 35.0f ;
+		status.Mana = 35.0f ;
+		status.Int = 25.0f ;
 		break ;
 	}
 
