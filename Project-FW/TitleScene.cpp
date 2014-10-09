@@ -1,5 +1,5 @@
 #include "TitleScene.h"
-#include "GameScene.h"
+#include "OpeningScene.h"
 
 #include "SceneManager.h"
 #include "Keyboard.h"
@@ -80,10 +80,13 @@ void TitleScene::Update(float dt)
 
 	if(m_pStart->BeClick())
 	{
-		g_SceneManager->ChangeScene(GameScene::scene()) ;
+		g_SceneManager->ChangeScene(OpeningScene::scene()) ;
+		return ;
 	}
 	else if(m_pExit->BeClick())
 	{
+		PostQuitMessage(0) ;
+		return ;
 	}
 }
 

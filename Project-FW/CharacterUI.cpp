@@ -10,6 +10,8 @@
 #include "SceneManager.h"
 #include "EventCheckScene.h"
 
+#include "UserData.h"
+
 #include "D3dDevice.h"
 
 CCharacterUI::CCharacterUI() : m_fX(0.0f), m_fY(0.0f),
@@ -67,7 +69,7 @@ void CCharacterUI::Init()
 	m_pMatingButton = new CButton ;
 	m_pMatingButton->Init(60.0f, 30.0f, "Resource/Image/UI/Char/Mating_Button.png") ;
 	m_pMatingButton->SetPosition(422.0f, Height - 190.0f) ;
-	m_pMatingButton->SetIndex(0, 1, 1) ;
+	m_pMatingButton->SetIndex(0, 1, 2) ;
 	g_ButtonManager->AddButton(m_pMatingButton) ;
 
 	m_pMatingCancleButton = new CButton ;
@@ -81,7 +83,7 @@ void CCharacterUI::Init()
 	m_pEventButton->Init(60.0f, 30.0f, "Resource/Image/UI/Char/Event_Button.png") ;
 	m_pEventButton->SetPosition(422.0f, Height - 240.0f) ;
 	m_pEventButton->SetIndex(0, 1, 2) ;
-	//m_pEventButton->SetActivate(false) ;
+	m_pEventButton->SetActivate(false) ;
 	g_ButtonManager->AddButton(m_pEventButton) ;
 
 	m_pCloseButton = new CButton ;
@@ -126,6 +128,9 @@ void CCharacterUI::Init()
 void CCharacterUI::SetVisible(bool bVisible)
 {
 	m_bVisible = bVisible ;
+
+	if(g_UserData->nYear==0)
+		m_pMatingButton->SetActivate(false) ;
 
 	m_pMatingButton->SetVisible(m_bVisible & !m_bMating) ;
 	m_pMatingCancleButton->SetVisible(m_bVisible & m_bMating) ;

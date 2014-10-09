@@ -42,11 +42,11 @@ void GameScene::Init()
 	m_pMap->Init("Resource/Image/Map.png") ;
 	m_pMap->SetPosition(368.0f, Height - 240.0f) ;
 
+	g_UserData->Init() ;
+
 	g_MainUI->Init() ;
 
 	g_CharacterManager->Init() ;
-
-	g_UserData->Init() ;
 	
 	m_pBGM = g_MusicManager->LoadMusic("Resource/Sound/Main_game.mid", true) ;
 	g_MusicManager->PlayMusic(m_pBGM, 0) ;

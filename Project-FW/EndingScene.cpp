@@ -10,6 +10,7 @@
 
 #include "Sprite.h"
 #include "Button.h"
+#include "ButtonManager.h"
 #include "UserData.h"
 
 #include "D3dDevice.h"
@@ -29,9 +30,8 @@ EndingScene::~EndingScene()
 		delete m_pDirect ;
 	if(m_pResult!=NULL)
 		delete m_pResult ;
-	//
 	if(m_pButton!=NULL)
-		delete m_pButton ;
+		g_ButtonManager->DeleteButton(m_pButton) ;
 }
 
 Scene* EndingScene::scene()
@@ -70,6 +70,7 @@ void EndingScene::Init()
 	m_pButton->Init(76.0f, 32.0f, "Resource/Image/Event/Event_Close.png") ;
 	m_pButton->SetPosition(900.0f, Height - 500.0f) ;
 	m_pButton->SetIndex(0, 1, 1) ;
+	g_ButtonManager->AddButton(m_pButton) ;
 	
 	m_pBGM = g_MusicManager->LoadMusic("Resource/Sound/Ending.mid", true) ;
 	g_MusicManager->PlayMusic(m_pBGM, 0) ;
@@ -117,11 +118,7 @@ void EndingScene::Update(float dt)
 	}
 	else
 	{
-		int x=g_Mouse->GetMousePoint().x, y=g_Mouse->GetMousePoint().y ;
-		bool bClick = g_Mouse->IsMouse(g_Mouse->LBUTTON_DOWN) ;
-		bool bPress = g_Mouse->IsMousePress(g_Mouse->LBUTTON_UP) ;
-
-		m_pButton->ClickState(x, y, bClick, bPress) ;
+		g_ButtonManager->Update() ;
 
 		if(m_pButton->BeClick())
 		{

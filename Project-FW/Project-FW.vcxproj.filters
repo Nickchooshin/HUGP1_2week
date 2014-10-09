@@ -98,6 +98,9 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="OpeningScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h" />
@@ -201,6 +204,9 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="OpeningScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>

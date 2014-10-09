@@ -104,6 +104,7 @@
     <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="NumberUI.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="OpeningScene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StatusNumberUI.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="MusicManager.h" />
     <ClInclude Include="NumberUI.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="OpeningScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
